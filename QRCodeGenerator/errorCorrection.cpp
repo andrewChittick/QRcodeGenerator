@@ -19,50 +19,73 @@ int main(int argc, char * argv[]){
   //hello world message polynomial for test case
   std::vector <int> message{32, 91, 11, 120, 209, 114, 220, 77, 67, 64, 236, 17, 236, 17, 236, 17};
   std::vector <int> result = message;
+  std::vector <int> tempArr;
+  int steps = message.size();
   //get generator polynomial
   std::vector <int> generator{0, 251, 67, 46, 61, 118, 70, 64, 94, 32, 45};
   /*divide the message by the generator*/
   int temp = 0;
-  int step = 0;
+  int resultSize = result.size();
   //multiply the generator polynomial by the lead term of the message polynomial
-  for (int messageIndex = 0; messageIndex<message.size(); messageIndex++){
+  for (int messageIndex = 0; messageIndex<6/*message.size()*/; messageIndex++){
     //convert term to alpha notation
-    int alpha = convertToAlpha(message[messageIndex]);
-    //multiply generator by converted term
+    //int alpha = convertToAlpha(message[messageIndex]);
+
+    int alph = convertToAlpha(result[0]);
+    std::cout<<"alph "<<alph<<std::endl;
+
     //step 1a
-    //std::cout<<generator.size()<<std::endl;
-    for (int i = step; i<generator.size(); i++){
-      temp = generator[i] + alpha;
+    //multiply generator by lead term of result from prev step a
+    for (int i = 0; i<generator.size(); i++){
+      temp = generator[i] + alph;
       //maintain Galois Field
       if (temp > 255){
         temp = temp % 255;
       }
+      //1b XOR with result from prev step b
       temp = convertToInteger(temp);
-      //step 1b: XOR
-      result[i] = temp ^ message[i];
+      tempArr[i] = temp ^ result[i];
     }
-    step++;
+
+    for (int i = generator.size(); i<steps; i++){
+      //step 1b: XOR
+      result[i] = 0 ^ result[i];
+    }
+    //prepare the result
+    for (int i = 0; i < steps-1; i++){
+      //discard lead term
+      result[i]= result[i+1];
+    }
+    /*
+    //discard the lead term
+    for (int i = 1; i < steps; i++){
+      result[i-1] = result[i];
+    }
+    */
+    //result[steps] = 0;
+    if (steps > generator.size()){
+      steps--;
+      std::cout<<"steps: "<<steps<<std::endl;
+    }
   }
 
-  /* /error correction words are the remainder (result[step-size])
-  int resultSize = result.size() - step;
-  for (int i=0; i<resultSize; i++){
-    answer[i]= result[step];
-    step++;
-    std::cout<<answer[i]<<" ";
+  //error correction words are the remainder (result[step-size])
+  //int resultSize = result.size() - step;
+  //std::cout<<resultSize<<" size(): "<<result.size()<<" step: "<<step<<std::endl;
+  //std::vector <int> answer;
+  for (int i=0; i<steps; i++){
+    //answer[i]= result[step];
+    //step++;
+    std::cout<<result[i]<<std::endl;
+    //std::cout<<answer[i]<<" ";
   }
-  */
 
-  for (int i =0; i< 256; i++){
-    std::cout<<intIndex[i]<<std::endl;
-  }
   return 0;
 }
 
 int convertToAlpha(int index){
   //std::cout<<dec<<std::endl;
-  //return intIndex[index-1];
-  return 12;
+  return intIndex[index-1];
 }
 int convertToInteger(int index){
   //std::cout<<alpha<<std::endl;
