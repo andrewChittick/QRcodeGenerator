@@ -27,7 +27,7 @@ int main(int argc, char * argv[]){
   int temp = 0;
   int resultSize = result.size();
   //multiply the generator polynomial by the lead term of the message polynomial
-  for (int messageIndex = 0; messageIndex<6/*message.size()*/; messageIndex++){
+  for (int messageIndex = 0; messageIndex<message.size(); messageIndex++){
     //convert term to alpha notation
     //int alpha = convertToAlpha(message[messageIndex]);
 
@@ -44,7 +44,7 @@ int main(int argc, char * argv[]){
       }
       //1b XOR with result from prev step b
       temp = convertToInteger(temp);
-      tempArr[i] = temp ^ result[i];
+      result[i] = temp ^ result[i];
     }
 
     for (int i = generator.size(); i<steps; i++){
@@ -52,7 +52,7 @@ int main(int argc, char * argv[]){
       result[i] = 0 ^ result[i];
     }
     //prepare the result
-    for (int i = 0; i < steps-1; i++){
+    for (int i = 0; i < steps; i++){
       //discard lead term
       result[i]= result[i+1];
     }
@@ -62,10 +62,13 @@ int main(int argc, char * argv[]){
       result[i-1] = result[i];
     }
     */
-    //result[steps] = 0;
-    if (steps > generator.size()){
+    if (steps >= generator.size()){
+      //result[steps-1] = 0;
       steps--;
       std::cout<<"steps: "<<steps<<std::endl;
+    }
+    else{
+      result[10]=0;
     }
   }
 
@@ -73,7 +76,7 @@ int main(int argc, char * argv[]){
   //int resultSize = result.size() - step;
   //std::cout<<resultSize<<" size(): "<<result.size()<<" step: "<<step<<std::endl;
   //std::vector <int> answer;
-  for (int i=0; i<steps; i++){
+  for (int i=0; i<10; i++){
     //answer[i]= result[step];
     //step++;
     std::cout<<result[i]<<std::endl;
