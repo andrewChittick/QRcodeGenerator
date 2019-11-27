@@ -2,6 +2,8 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
+#include <string>
+#include <map>
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -15,7 +17,16 @@ public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
 
+private slots:
+    void on_submitButton_clicked();
+
 private:
     Ui::MainWindow *ui;
+
+private:
+    void dataEncoding();
+    int chooseVersion(std::string input);
+    std::string characterCount(std::string input, int versionNumber);
+    std::string decimalToBinary(std::string input);
 };
 #endif // MAINWINDOW_H
