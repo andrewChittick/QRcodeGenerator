@@ -223,6 +223,7 @@ Makefile: ../QRCodeGenerator/QRCodeGenerator.pro E:/Qt/5.12.6/mingw73_32/mkspecs
 		E:/Qt/5.12.6/mingw73_32/mkspecs/features/qt_config.prf \
 		E:/Qt/5.12.6/mingw73_32/mkspecs/win32-g++/qmake.conf \
 		E:/Qt/5.12.6/mingw73_32/mkspecs/features/spec_post.prf \
+		.qmake.stash \
 		E:/Qt/5.12.6/mingw73_32/mkspecs/features/exclusive_builds.prf \
 		E:/Qt/5.12.6/mingw73_32/mkspecs/features/toolchain.prf \
 		E:/Qt/5.12.6/mingw73_32/mkspecs/features/default_pre.prf \
@@ -411,6 +412,7 @@ E:/Qt/5.12.6/mingw73_32/mkspecs/features/qt_functions.prf:
 E:/Qt/5.12.6/mingw73_32/mkspecs/features/qt_config.prf:
 E:/Qt/5.12.6/mingw73_32/mkspecs/win32-g++/qmake.conf:
 E:/Qt/5.12.6/mingw73_32/mkspecs/features/spec_post.prf:
+.qmake.stash:
 E:/Qt/5.12.6/mingw73_32/mkspecs/features/exclusive_builds.prf:
 E:/Qt/5.12.6/mingw73_32/mkspecs/features/toolchain.prf:
 E:/Qt/5.12.6/mingw73_32/mkspecs/features/default_pre.prf:

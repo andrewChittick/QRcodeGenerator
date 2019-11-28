@@ -4,6 +4,7 @@
 #include <bitset>
 #include <map>
 #include <iostream>
+#include "qrpage.h"
 
 
 
@@ -137,10 +138,64 @@ void  MainWindow::dataEncoding() {
         std::string codeWordSection = decimalToBinary(stringEncodedDecimal, 5);
         codeWords = codeWords.append(codeWordSection);
     }
-    std::cout << codeWords << std::endl;
+
+    // Find number of code words based on version number * 8
+    int numberOfCodewords;
+    int numberOfBits;
+    if (versionNumber == 1) {
+        numberOfCodewords = 16;
+        numberOfBits = numberOfCodewords * 8;
+    }
+    else if (versionNumber == 2) {
+        numberOfCodewords = 28;
+        numberOfBits = numberOfCodewords * 8;
+    }
+
+    // If bit string is shorter than number of required bits, add terminator 0's (up to four)
+    int terminatorZeros = 0;
+    while (terminatorZeros < 4) {
+        if (codeWords.length() < numberOfBits) {
+            codeWords = codeWords.append("0");
+            terminatorZeros++;
+        }
+        else {
+            terminatorZeros = 4;
+        }
+    }
+
+    // If number of bits in the string is not a multiple of 8, pad 0's till it is
+    while (codeWords.length() % 8 != 0) {
+        codeWords = codeWords.append("0");
+    }
+
+    // If the string is still not long enough
+
+    // Pad byte one (236)
+    // Pad byte two (17)
+    std::string padBytes[2] = {"11101100", "00010001"};
+    int requiredPadBytes = (numberOfBits - codeWords.length()) / 8;
+    for (int i = 0; i < requiredPadBytes; i++) {
+        codeWords = codeWords.append(padBytes[i % 2]);
+    }
+
+    // Split codeWords string into an array every 8 bits
+    std::string codeWordsFinal[numberOfCodewords];
+    int byteCounter = 0;
+
+    for (int i = 0; i < numberOfBits; i++) {
+        if (i % 8 == 0 && i != 0) {
+            byteCounter++;
+        }
+        std::string temp = codeWordsFinal[byteCounter];
+        temp += codeWords.at(i);
+        codeWordsFinal[byteCounter] = temp;
+    }
+
+
 }
 
-void MainWindow::on_submitButton_clicked()
-{
+void MainWindow::on_submitButton_clicked() {
     dataEncoding();
+    QRPage *uiTwo = new QRPage(this);
+    uiTwo->show();
 }
