@@ -11,25 +11,27 @@ void errorCorrection(std::string *, int, int *, int);
 int main(int argc, char * argv[]){
   //test cases
   //HELLO WORLD (level 1)
+  //errorCodeWords = (196, 35, 39, 119, 235, 215, 131, 226, 93, 23)
   std::string levelOne[16] = {"00100000", "01011011", "00001011", "01111000", "11010001", "01110010", "11011100", "01001101", "01000011", "01000000", "11101100", "00010001", "11101100", "00010001", "11101100", "00010001"};
-  //level 2
-  std::string levelTwo[28] =  {"01000001", "01110100", "10000110", "01010110", "11000110", "11000110", "11110010", "11000010", "00000111", "01110110", "11110111", "00100110", "11000110", "01000010", "00010010", "00000011", "00010011", "00100011", "00110010", "00000110", "00100110", "10010111", "01000110", "00110110", "10000000", "11101100", "00010001", "11101100"};
-
-  int level = 1;
-  int numCodeWords, numErrorWords;
+  //Software Engineering 450 (level 2)
+  //errorCodeWords = (187, 34, 119, 6, 118, 146, 177, 2, 249, 134, 248, 31, 176, 164, 208, 171)
+  std::string levelTwo[28] = {"01000001", "10000101", "00110110", "11110110", "01100111", "01000111", "01110110", "00010111", "00100110", "01010010", "00000100", "01010110", "11100110", "01110110", "10010110", "11100110", "01010110", "01010111", "00100110", "10010110", "11100110", "01110010", "00000011", "01000011", "01010011", "00000000", "11101100", "00010001"};
   std::string * codewords;
 
+  int level = 1;
+  //end test data
+
+  int numCodeWords, numErrorWords;
   if (level == 1){
     numCodeWords = 16;
     numErrorWords = 10;
-    codewords = levelOne;
+    codewords = levelOne;//for testing
   }
   else{
     numCodeWords = 28;
     numErrorWords = 16;
-    codewords = levelTwo;
+    codewords = levelTwo;//for testing
   }
-
   //to run error correction
   int * errorCorrectionWords = new int[numErrorWords];
   errorCorrection(codewords, numCodeWords, errorCorrectionWords, numErrorWords);
@@ -43,23 +45,13 @@ int main(int argc, char * argv[]){
   //end error correction
 }
 
-
-
 void errorCorrection(std::string * codewords, int numCodeWords, int* errorCorrectionWords, int numErrorWords){
   //define functions
   void codeToDecimal(std::string *, int, int *);
   void getErrorWords(int*, int, int*, int);
-
   //run functions produces errorCorrectionWords
   int * decimalCodewords = new int[numCodeWords];
   codeToDecimal(codewords, numCodeWords, decimalCodewords);
-
-  /*print decimal decimal code words
-  for (int i=0; i<numCodeWords; i++){
-    std::cout<<decimalCodewords[i]<<std::endl;
-  }
-  std::cout<<std::endl<<std::endl;
-*/
   getErrorWords(decimalCodewords, numCodeWords, errorCorrectionWords, numErrorWords);
   delete [] decimalCodewords;
   return;
@@ -78,7 +70,7 @@ void codeToDecimal(std::string * code, int size, int * decimalCodewords){
       }
       count--;
     }
-    decimalCodewords[i]= decimal;
+    decimalCodewords[i] = decimal;
   }
   return;
 }
@@ -90,7 +82,7 @@ void getErrorWords(int * decimalCodewords, int numCodeWords, int * errorCorrecti
   int convertToInteger(int);
   //initialize variables
   int generatorOne[11] = {0, 251, 67, 46, 61, 118, 70, 64, 94, 32, 45};
-  int generatorTwo[17] = {69, 187};
+  int generatorTwo[17] = {0, 120, 104, 107, 109, 102, 161, 76, 3, 91, 191, 147, 169, 182, 194, 225, 120};
   int generatorSize = numErrorWords+1;
   int * generator;
   if (generatorSize == 11){
@@ -101,10 +93,9 @@ void getErrorWords(int * decimalCodewords, int numCodeWords, int * errorCorrecti
   }
   int steps = numCodeWords;
   int temp = 0;
-  int alph;
-
+  int alph = 0;
   //generate error correction words
-  for (int duke=0; duke<numCodeWords; duke++){
+  for (int index=0; index<numCodeWords; index++){
     //convert lead term to alpha
     alph = convertToAlpha(decimalCodewords[0]);
     //1a
@@ -131,18 +122,15 @@ void getErrorWords(int * decimalCodewords, int numCodeWords, int * errorCorrecti
     }
     //steps shrinks until it is same size as generator
     if (steps >= generatorSize){
-      //result[steps-1] = 0;
       steps--;
-      //std::cout<<"steps: "<<steps<<std::endl;
     }
     else{
-      decimalCodewords[10]=0;
+      decimalCodewords[numErrorWords] = 0;
     }
   }
-  //prepare result
+  //save result to errorCorrectionWords
   for (int i=0; i<numErrorWords; i++){
     errorCorrectionWords[i] = decimalCodewords[i];
-    //std::cout<<errorCorrectionWords[i]<<std::endl;
   }
   return;
 }
