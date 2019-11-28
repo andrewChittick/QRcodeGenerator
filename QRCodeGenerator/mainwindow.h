@@ -27,6 +27,6 @@ private:
     void dataEncoding();
     int chooseVersion(std::string input);
     std::string characterCount(std::string input, int versionNumber);
-    std::string decimalToBinary(std::string input);
+    std::string decimalToBinary(std::string input, int binarySize);
 };
 #endif // MAINWINDOW_H

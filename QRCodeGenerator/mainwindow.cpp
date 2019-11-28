@@ -28,10 +28,10 @@ int MainWindow::chooseVersion(std::string input) {
     return 0;
 }
 
-std::string MainWindow::decimalToBinary(std::string input) {
+std::string MainWindow::decimalToBinary(std::string input, int binarySize) {
     int number = std::stoi(input);
     std::string binaryNumber;
-    for (int i = 7; i >= 0; i--) {
+    for (int i = binarySize; i >= 0; i--) {
         int temp = number >> i;
         if (temp & 1) {
             binaryNumber.append("1");
@@ -98,12 +98,25 @@ void  MainWindow::dataEncoding() {
     alphaNumericMap.insert(std::make_pair('/', 43));
     alphaNumericMap.insert(std::make_pair(':', 44));
 
-    std::string codeWords[16];
+    // Mode Indicator: alphanumeric
+    std::string codeWords = "0010";
+
+    // Converting QTCreator qstring to c++ std::string
     std::string input = ui->userInput->text().toStdString();
+
+    // Get version number from the string length
     int versionNumber = chooseVersion(input);
     std::string characterCountIndicator = characterCount(input, versionNumber);
-    int codeWordCount = 1;
-    codeWords[0] = characterCountIndicator;
+    codeWords = codeWords.append(characterCountIndicator);
+
+    // If string is odd number of characters, save last character for later
+    char backCharacter;
+    bool oddNumberStr = false;
+    if (input.length() % 2 != 0) {
+        backCharacter = input.back();
+        input.pop_back();
+        oddNumberStr = true;
+    }
 
     // Encoding the input by taking two characters at a time and applying algorithm
     for (int i = 0; i < input.length(); i++) {
@@ -111,15 +124,20 @@ void  MainWindow::dataEncoding() {
         std::map<char, int>::iterator it2 = alphaNumericMap.find(input.at(i+1));
         int encodedDecimal = it->second * 45 + it2->second;
         std::string stringEncodedDecimal = std::to_string(encodedDecimal);
-        std::string codeWord = decimalToBinary(stringEncodedDecimal);
-        std::cout << codeWord << std::endl;
-        codeWords[codeWordCount] = codeWord;
-        codeWordCount++;
+        std::string codeWordSection = decimalToBinary(stringEncodedDecimal, 10);
+        codeWords = codeWords.append(codeWordSection);
         i++;
     }
-    for (int i = 0; i < codeWords->length(); i++) {
-        std::cout << codeWords[i] << std::endl;
+
+    // Take odd numbered character and convert it to 6 digit binary
+    if (oddNumberStr) {
+        std::map<char, int>::iterator it = alphaNumericMap.find(backCharacter);
+        int encodedDecimal = it->second;
+        std::string stringEncodedDecimal = std::to_string(encodedDecimal);
+        std::string codeWordSection = decimalToBinary(stringEncodedDecimal, 5);
+        codeWords = codeWords.append(codeWordSection);
     }
+    std::cout << codeWords << std::endl;
 }
 
 void MainWindow::on_submitButton_clicked()
