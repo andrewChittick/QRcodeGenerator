@@ -16,9 +16,13 @@ int main(int argc, char * argv[]){
   //Software Engineering 450 (level 2)
   //errorCodeWords = (187, 34, 119, 6, 118, 146, 177, 2, 249, 134, 248, 31, 176, 164, 208, 171)
   std::string levelTwo[28] = {"01000001", "10000101", "00110110", "11110110", "01100111", "01000111", "01110110", "00010111", "00100110", "01010010", "00000100", "01010110", "11100110", "01110110", "10010110", "11100110", "01010110", "01010111", "00100110", "10010110", "11100110", "01110010", "00000011", "01000011", "01010011", "00000000", "11101100", "00010001"};
+  //https://github.com/andrewChittick (level 3)
+  //errorCodeWords = (16, 85, 240, 31, 127, 17, 10, 113, 99, 100, 133, 159, 123, 152, 139, 253, 96, 37, 204, 119, 185, 199, 149, 174, 247, 4)
+  std::string levelThree[44] =
+  {"01000010", "00010110", "10000111", "01000111", "01000111", "00000111", "00110011", "10100010", "11110010", "11110110", "01110110", "10010111", "01000110", "10000111", "01010110", "00100010", "11100110", "00110110", "11110110", "11010010", "11110110", "00010110", "11100110", "01000111", "00100110", "01010111", "01110100", "00110110", "10000110", "10010111", "01000111", "01000110", "10010110", "00110110", "10110000", "11101100", "00010001", "11101100", "00010001", "11101100", "00010001", "11101100", "00010001", "11101100"};
   std::string * codewords;
 
-  int level = 1;
+  int level = 3;
   //end test data
 
   int numCodeWords, numErrorWords;
@@ -27,10 +31,15 @@ int main(int argc, char * argv[]){
     numErrorWords = 10;
     codewords = levelOne;//for testing
   }
-  else{
+  else if (level == 2){
     numCodeWords = 28;
     numErrorWords = 16;
     codewords = levelTwo;//for testing
+  }
+  else{
+    numCodeWords = 44;
+    numErrorWords = 26;
+    codewords = levelThree;//for testing
   }
   //to run error correction
   int * errorCorrectionWords = new int[numErrorWords];
@@ -60,7 +69,6 @@ void errorCorrection(std::string * codewords, int numCodeWords, int* errorCorrec
 //Converts an 8 char string to a decimal size times; writes to decimalCodewords
 void codeToDecimal(std::string * code, int size, int * decimalCodewords){
   int count, decimal;
-
   for (int i=0; i<size; i++){
     count = 7;
     decimal = 0;
@@ -83,13 +91,17 @@ void getErrorWords(int * decimalCodewords, int numCodeWords, int * errorCorrecti
   //initialize variables
   int generatorOne[11] = {0, 251, 67, 46, 61, 118, 70, 64, 94, 32, 45};
   int generatorTwo[17] = {0, 120, 104, 107, 109, 102, 161, 76, 3, 91, 191, 147, 169, 182, 194, 225, 120};
+  int generatorThree[27] = {0, 173, 125, 158, 2, 103, 182, 118, 17, 145, 201, 111, 28, 165, 53, 161, 21, 245, 142, 13, 102, 48, 227, 153, 145, 218, 70};
   int generatorSize = numErrorWords+1;
   int * generator;
   if (generatorSize == 11){
     generator = generatorOne;
   }
-  else{
+  else if (generatorSize == 17){
     generator = generatorTwo;
+  }
+  else{
+    generator = generatorThree;
   }
   int steps = numCodeWords;
   int temp = 0;
