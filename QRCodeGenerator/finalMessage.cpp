@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <iostream>
 #include <string>
-std::string makeFinalMessage(std::string* codewords, int* data, int numCode, int numErr);
+#include "messagefun.h"
 
 std::string makeFinalMessage(std::string* codewords, int* data, int numCode, int numErr)
 {
