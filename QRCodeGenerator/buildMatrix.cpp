@@ -1,12 +1,13 @@
 #include <iostream>
 
 using namespace std;
+int **makeMatrix(int *data, int version);
 void addFinder(int **matrix, int **patterns, int cornerx, int cornery);
 void setInfoAreas(int **matrix, int **patterns, int dimval);
-void layoutData(int **matrix, int **patterns, int *data, int dim, int arLen);
-int main()
+void layoutData(int **matrix, int **patterns, int *data, int dim, int ver);
+
+int **makeMatrix(int *data, int version)
 {
-    int version = 2;
     int dim = (((version-1)*4)+21);
 	int **matrix;
 	matrix = new int*[dim];
@@ -16,13 +17,7 @@ int main()
 	patterns = new int*[dim];
 	for(int j = 0; j < dim; j++)
 		patterns[j] = new int[dim];
-	int *data;
-    int dataAr[100];
-    for(int i = 0; i < 100; i++)
-    {
-        dataAr[i] = 3;
-    }
-    data = dataAr;
+
     
 	//Set finder patterns
 	addFinder(matrix, patterns, 0, 0);
@@ -46,7 +41,6 @@ int main()
 			matrix[20][16 + i] = 1;
 			matrix[16 + i][20] = 1;
 		}
-		matrix[18][18] = 1;
 		for(int i= 0; i < 5; i++)
 		{
 			for(int j= 0; j < 5; j++)
@@ -73,11 +67,10 @@ int main()
 	patterns[darkx][8] = 1;
 	//Reserve format info with value 2 (format)
 	setInfoAreas(matrix, patterns, dim - 1);
-    layoutData(matrix, patterns, data, dim - 1, (sizeof(dataAr)/sizeof(*dataAr)));
-
+    layoutData(matrix, patterns, data, dim - 1, version);
 
 	
-	for(int i= 0; i < dim; i++)
+	/*for(int i= 0; i < dim; i++)
 	{
 	    for(int j= 0; j < dim; j++)
 	    {
@@ -86,15 +79,8 @@ int main()
 	    cout << "\n";
 	}
 	cout <<"\n";
-	for(int i= 0; i < dim; i++)
-	{
-	    for(int j= 0; j < dim; j++)
-	    {
-	        cout << patterns[i][j];
-	    }
-	    cout << "\n";
-	}
-	return 0;
+	*/
+	return matrix;
 }
 void addFinder(int **matrix, int **patterns, int cornerx, int cornery)
 {
@@ -126,37 +112,45 @@ void setInfoAreas(int **matrix, int **patterns, int dimval)
 {
     for(int i = 0; i < 7; i++)
 	{
-	   matrix[dimval - i][8] = 2;
+	   matrix[dimval - i][8] = 0;
 	   patterns[dimval - i][8] = 1;
 	}
 	for(int k = 0; k < 8; k++)
 	{
-	   matrix[8][dimval - k] = 2;
+	   matrix[8][dimval - k] = 0;
 	   patterns[8][dimval - k] = 1;
 	}
 	for(int i = 0; i < 6; i++)
 	    {
-	        matrix[i][8] = 2;
-	        matrix[8][i] = 2;
+	        matrix[i][8] = 0;
+	        matrix[8][i] = 0;
 	        patterns[i][8] = 1;
 	        patterns[8][i] = 1;
 	    }
 	for(int j = 7; j < 9; j++)
 	{
-	    matrix[j][8] = 2;
-	    matrix[8][j] = 2;
+	    matrix[j][8] = 0;
+	    matrix[8][j] = 0;
 	    patterns[j][8] = 1;
 	    patterns[8][j] = 1;
 	}
 }
-void layoutData(int **matrix, int **patterns, int *data, int dim, int arLen)
+void layoutData(int **matrix, int **patterns, int *data, int dim, int ver)
 {
     int leftx = dim - 1;
     int rightx = dim;
     int currenty = dim;
     //Direction - -1 if sorting upwards, 1 if sorting downwards
     int direction = -1;
-    int totalBits = arLen;
+    int totalBits;
+    if(ver = 1)
+    {
+        totalBits = 128;
+    }
+    else
+    {
+        totalBits = 224;
+    }
     int dataBits = 0;
 
     while (dataBits < totalBits)
