@@ -152,13 +152,13 @@ void layoutData(int **matrix, int **patterns, std::string data, int dim, int ver
     {
         if(patterns[rightx][currenty] == 0)
         {
-            matrix[currenty][rightx] = data[dataBits]; 
+            matrix[currenty][rightx] = data.at(dataBits); 
             dataBits++;
             
         }
         if(patterns[leftx][currenty] == 0)
         {
-            matrix[currenty][leftx] = data[dataBits];
+            matrix[currenty][leftx] = data.at(dataBits);
             dataBits++;
         }
         if(currenty == 0 && direction == -1)
