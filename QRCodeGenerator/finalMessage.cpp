@@ -20,7 +20,6 @@ std::string makeFinalMessage(std::string* codewords, int* data, int numCode, int
 	{
 		finalStr += "0000000";
 	}
-	std::cout << finalStr;
 	return finalStr;
 	
 
