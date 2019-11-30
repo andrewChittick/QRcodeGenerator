@@ -245,11 +245,13 @@ void MainWindow::on_submitButton_clicked() {
 
     std::string finalMessage = makeFinalMessage(binaryErrorWords, codewords, numCodeWords, numErrorWords);
 
+    int ** layout = makeMatrix(finalMessage, level);
 
 
     std::cout<<"final message: "<<finalMessage<<std::endl;
 
-    delete [] errorCorrectionWords;//we are here
+    delete [] errorCorrectionWords;
+    delete [] binaryErrorWords;
 
     QRPage *uiTwo = new QRPage(this);
     uiTwo->show();

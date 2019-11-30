@@ -3,7 +3,7 @@
 using namespace std;
 
 
-int **makeMatrix(int *data, int version)
+int **makeMatrix(std::string data, int version)
 {
     int dim = (((version-1)*4)+21);
 	int **matrix;
@@ -66,6 +66,14 @@ int **makeMatrix(int *data, int version)
 	setInfoAreas(matrix, patterns, dim - 1);
     	layoutData(matrix, patterns, data, dim - 1, version);
 
+
+    for (int i =0; i< dim; i++){
+        for (int j =0;  j<dim; j++){
+            cout<<matrix[i][j];
+         }
+        cout<<endl;
+     }
+
 	
 	return matrix;
 }
@@ -122,7 +130,7 @@ void setInfoAreas(int **matrix, int **patterns, int dimval)
 	    patterns[8][j] = 1;
 	}
 }
-void layoutData(int **matrix, int **patterns, int *data, int dim, int ver)
+void layoutData(int **matrix, int **patterns, std::string data, int dim, int ver)
 {
     int leftx = dim - 1;
     int rightx = dim;

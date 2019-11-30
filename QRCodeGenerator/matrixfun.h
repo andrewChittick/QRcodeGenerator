@@ -1,9 +1,11 @@
 #ifndef MATRIXFUN
 #define MATRIXFUN
 
-int **makeMatrix(int *data, int version);
+#include <string>
+
+int **makeMatrix(std::string data, int version);
 void addFinder(int **matrix, int **patterns, int cornerx, int cornery);
 void setInfoAreas(int **matrix, int **patterns, int dimval);
-void layoutData(int **matrix, int **patterns, int *data, int dim, int ver);
+void layoutData(int **matrix, int **patterns, std::string data, int dim, int ver);
 
 #endif
