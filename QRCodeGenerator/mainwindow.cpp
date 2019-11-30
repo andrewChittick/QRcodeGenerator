@@ -181,7 +181,7 @@ std::string * MainWindow::dataEncoding() {
     }
 
     // Split codeWords string into an array every 8 bits
-    std::string codeWordsFinal[numberOfCodewords];
+    std::string * codeWordsFinal = new std::string[numberOfCodewords];
     int byteCounter = 0;
 
     for (int i = 0; i < numberOfBits; i++) {
@@ -210,6 +210,10 @@ std::string MainWindow::secondaryColor() {
 
 void MainWindow::on_submitButton_clicked() {
     int numCodeWords, numErrorWords;
+
+    std::string * codewords;
+    codewords = dataEncoding();
+
     if (level == 1){
       numCodeWords = 16;
       numErrorWords = 10;
@@ -218,18 +222,22 @@ void MainWindow::on_submitButton_clicked() {
       numCodeWords = 28;
       numErrorWords = 16;
     }
-    std::string * codewords;
-    codewords = dataEncoding();
+
     //to run error correction
     int * errorCorrectionWords = new int[numErrorWords];
     errorCorrection(codewords, numCodeWords, errorCorrectionWords, numErrorWords);
 
     //test
-    for (int i=0; i<numErrorWords; i++){
-      //std::cout<<errorCorrectionWords[i]<<std::endl;
+    for (int i=0; i<numCodeWords; i++){
+      std::cout<<codewords[i]<<std::endl;
     }
 
-    //delete [] errorCorrectionWords;
+
+    for (int i=0; i<numErrorWords; i++){
+      std::cout<<errorCorrectionWords[i]<<std::endl;
+    }
+
+    delete [] errorCorrectionWords;//we are here
 
     QRPage *uiTwo = new QRPage(this);
     uiTwo->show();
