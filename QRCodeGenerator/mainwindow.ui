@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>880</width>
-    <height>522</height>
+    <width>561</width>
+    <height>408</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -17,8 +17,8 @@
    <widget class="QPushButton" name="submitButton">
     <property name="geometry">
      <rect>
-      <x>740</x>
-      <y>440</y>
+      <x>460</x>
+      <y>330</y>
       <width>75</width>
       <height>23</height>
      </rect>
@@ -30,35 +30,35 @@
    <widget class="QLabel" name="primaryColor">
     <property name="geometry">
      <rect>
-      <x>210</x>
-      <y>180</y>
+      <x>140</x>
+      <y>140</y>
       <width>91</width>
       <height>21</height>
      </rect>
     </property>
     <property name="text">
-     <string>Primary Color</string>
+     <string>Primary Color:</string>
     </property>
    </widget>
    <widget class="QLabel" name="secondaryColor">
     <property name="geometry">
      <rect>
-      <x>590</x>
+      <x>140</x>
       <y>180</y>
       <width>91</width>
       <height>16</height>
      </rect>
     </property>
     <property name="text">
-     <string>Secondary Color</string>
+     <string>Secondary Color:</string>
     </property>
    </widget>
    <widget class="QLineEdit" name="userInput">
     <property name="geometry">
      <rect>
-      <x>210</x>
+      <x>130</x>
       <y>90</y>
-      <width>611</width>
+      <width>351</width>
       <height>20</height>
      </rect>
     </property>
@@ -66,20 +66,63 @@
    <widget class="QComboBox" name="comboBox">
     <property name="geometry">
      <rect>
-      <x>40</x>
-      <y>90</y>
+      <x>310</x>
+      <y>140</y>
       <width>111</width>
       <height>22</height>
      </rect>
     </property>
     <item>
      <property name="text">
-      <string>URL</string>
+      <string>Black</string>
      </property>
     </item>
     <item>
      <property name="text">
-      <string>Text</string>
+      <string>Purple</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string/>
+     </property>
+    </item>
+   </widget>
+   <widget class="QLabel" name="label">
+    <property name="geometry">
+     <rect>
+      <x>80</x>
+      <y>80</y>
+      <width>31</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>QR:</string>
+    </property>
+   </widget>
+   <widget class="QComboBox" name="comboBox_2">
+    <property name="geometry">
+     <rect>
+      <x>310</x>
+      <y>180</y>
+      <width>111</width>
+      <height>22</height>
+     </rect>
+    </property>
+    <item>
+     <property name="text">
+      <string>White</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>Yellow</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string/>
      </property>
     </item>
    </widget>
@@ -89,7 +132,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>880</width>
+     <width>561</width>
      <height>21</height>
     </rect>
    </property>

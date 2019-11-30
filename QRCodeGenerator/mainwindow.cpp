@@ -194,6 +194,16 @@ void  MainWindow::dataEncoding() {
 
 }
 
+std::string MainWindow::primaryColor() {
+    QString primaryColor = ui->comboBox->currentData().toString();
+    return primaryColor.toStdString();
+}
+
+std::string MainWindow::secondaryColor() {
+    QString secondaryColor = ui->comboBox_2->currentData().toString();
+    return secondaryColor.toStdString();
+}
+
 void MainWindow::on_submitButton_clicked() {
     dataEncoding();
     QRPage *uiTwo = new QRPage(this);
