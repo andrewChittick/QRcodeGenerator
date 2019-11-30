@@ -202,7 +202,7 @@ std::vector<int> getBinary(int a, int len)
     return binary;
 }
 
-void genMaskingPatterns(int **c, int version)
+int **genMaskingPatterns(int **c, int version)
 {
     int width;
     
@@ -652,26 +652,15 @@ void genMaskingPatterns(int **c, int version)
         }
     }
     
-    
-    for (int i = 0; i < origFormat.size(); i++)
-    {
-        std::cout << origFormat[i];
-    }
-    std::cout << "\n";
-    
+    int *QRrows[width];
     for (int i = 0; i < width; i++)
     {
-        for (int j = 0; j < width; j++)
-        {
-            std::cout << finalCode[i][j] << " ";
-        }
-        std::cout << "\n";
+        QRrows[i] = finalCode[i];
     }
-}
-
-void maskingControl(int **c, int version)
-{
-    genMaskingPatterns(c, version);
+    
+    int **code = QRrows;
+    
+    return code;
 }
 
 int main()
@@ -704,7 +693,16 @@ int main()
     
     int **code = QRrows;
     
-    maskingControl(code, 1);
+    code = genMaskingPatterns(code, 1);
+    
+    for (int i = 0; i < 29; i++)
+    {
+        for (int j = 0; j < 29; j++)
+        {
+            std::cout << code[i][j] << " ";
+        }
+        std::cout << "\n";
+    }
     
     return 0;
 }
