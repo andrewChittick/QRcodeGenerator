@@ -6,7 +6,7 @@
 #include <iostream>
 #include "qrpage.h"
 
-
+int level;
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -21,9 +21,11 @@ MainWindow::~MainWindow() {
 
 int MainWindow::chooseVersion(std::string input) {
     if (input.length() <= 20) {
+        level =1;
         return 1;
     }
     else if (input.length() <= 38) {
+        level =2;
         return 2;
     }
     return 0;
@@ -51,7 +53,7 @@ std::string MainWindow::characterCount(std::string input, int versionNumber) {
     return finalCount;
 }
 
-void  MainWindow::dataEncoding() {
+std::string * MainWindow::dataEncoding() {
     std::map<char, int> alphaNumericMap;
     alphaNumericMap.insert(std::make_pair('0', 0));
     alphaNumericMap.insert(std::make_pair('1', 1));
@@ -191,6 +193,8 @@ void  MainWindow::dataEncoding() {
         codeWordsFinal[byteCounter] = temp;
     }
 
+    return codeWordsFinal;
+
 
 }
 
@@ -205,7 +209,28 @@ std::string MainWindow::secondaryColor() {
 }
 
 void MainWindow::on_submitButton_clicked() {
-    dataEncoding();
+    int numCodeWords, numErrorWords;
+    if (level == 1){
+      numCodeWords = 16;
+      numErrorWords = 10;
+    }
+    else{
+      numCodeWords = 28;
+      numErrorWords = 16;
+    }
+    std::string * codewords;
+    codewords = dataEncoding();
+    //to run error correction
+    int * errorCorrectionWords = new int[numErrorWords];
+    errorCorrection(codewords, numCodeWords, errorCorrectionWords, numErrorWords);
+
+    //test
+    for (int i=0; i<numErrorWords; i++){
+      //std::cout<<errorCorrectionWords[i]<<std::endl;
+    }
+
+    //delete [] errorCorrectionWords;
+
     QRPage *uiTwo = new QRPage(this);
     uiTwo->show();
 }

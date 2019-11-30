@@ -18,11 +18,13 @@ DEFINES += QT_DEPRECATED_WARNINGS
 SOURCES += \
     main.cpp \
     mainwindow.cpp \
-    qrpage.cpp
+    qrpage.cpp \
+    errorCorrection.cpp
 
 HEADERS += \
     mainwindow.h \
-    qrpage.h
+    qrpage.h \
+    errorCorrection.h
 
 FORMS += \
     mainwindow.ui \
