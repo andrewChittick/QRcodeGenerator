@@ -6,15 +6,30 @@ using namespace std;
 int **makeMatrix(std::string data, int version)
 {
     int dim = (((version-1)*4)+21);
-	int **matrix;
+    int **matrix;
 	matrix = new int*[dim];
 	for(int i = 0; i < dim; i++)
 		matrix[i] = new int[dim];
+
+    for (int i = 0; i < dim; i++)
+    {
+        for (int j = 0; j < dim; j++)
+        {
+            matrix[i][j] = 0;
+        }
+    }
 	int **patterns;
 	patterns = new int*[dim];
 	for(int j = 0; j < dim; j++)
 		patterns[j] = new int[dim];
 
+    for (int i = 0; i < dim; i++)
+    {
+        for (int j = 0; j < dim; j++)
+        {
+            patterns[i][j] = 0;
+        }
+    }
     
 	//Set finder patterns
 	addFinder(matrix, patterns, 0, 0);
@@ -29,7 +44,7 @@ int **makeMatrix(std::string data, int version)
 	        patterns[i][(((version-1)*4)+21) - 8 + j] = 1;
 	    }
 	}
-	if (version = 2)
+    if (version == 2)
 	{
 		for(int i= 0; i < 5; i++)
 		{
@@ -147,7 +162,9 @@ void layoutData(int **matrix, int **patterns, std::string data, int dim, int ver
         totalBits = 224;
     }
     int dataBits = 0;
-    std::cout << data << std::endl;
+
+
+
     while (dataBits < totalBits)
     {
         if(patterns[rightx][currenty] == 0)
@@ -156,13 +173,13 @@ void layoutData(int **matrix, int **patterns, std::string data, int dim, int ver
             matrix[currenty][rightx] = int(data.at(dataBits));
             std::cout << matrix[currenty][rightx] << std::endl;
             dataBits++;
-            std::cout << "here2" << std::endl;
         }
         if(patterns[leftx][currenty] == 0)
         {
+            std::cout << matrix[currenty][leftx] << std::endl;
             matrix[currenty][leftx] = int(data.at(dataBits));
+            std::cout << matrix[currenty][leftx] << std::endl;
             dataBits++;
-            std::cout << "here3" << std::endl;
         }
         if(currenty == 0 && direction == -1)
         {
@@ -183,5 +200,17 @@ void layoutData(int **matrix, int **patterns, std::string data, int dim, int ver
             currenty = currenty + direction;
             
         }
+        std::cout << std::endl;
     }
+    for (int i = 0; i < 21; i++)
+    {
+        for (int j = 0; j < 21; j++)
+        {
+            if (matrix[i][j] == 48 || matrix[i][j] == 49)
+            {
+                matrix[i][j] -= 48;
+            }
+        }
+    }
+
 }
