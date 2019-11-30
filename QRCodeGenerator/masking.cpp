@@ -1,5 +1,6 @@
 #include <iostream>
 #include <cmath>
+#include <vector>
 
 int scorePattern(int **c, int width)
 {
@@ -177,6 +178,30 @@ int scorePattern(int **c, int width)
     return score;
 }
 
+int getLength(int a)
+{
+    return log2(a);
+}
+
+std::vector<int> getBinary(int a, int len)
+{
+    std::vector<int> binary;
+    for (int i = len; i >= 0; i--)
+    {
+        int temp = a >> i;
+        if (temp & 1)
+        {
+            binary.push_back(1);
+        }
+        else
+        {
+            binary.push_back(0);
+        }
+    }
+    
+    return binary;
+}
+
 void genMaskingPatterns(int **c, int version)
 {
     int width;
@@ -187,8 +212,12 @@ void genMaskingPatterns(int **c, int version)
     }
     else if (version == 2)
     {
-        width = 24;
+        width = 25;
     }
+
+    int lowestScore = 999;
+    int **bestMask;
+    int mask;
     
     bool flipBit = false;
     
@@ -222,7 +251,13 @@ void genMaskingPatterns(int **c, int version)
         }
         std::cout << std::endl;
     }
-    scorePattern(pat1, width);
+    int score = scorePattern(pat1, width);
+    if (score < lowestScore)
+    {
+        lowestScore = score;
+        bestMask = pat1;
+        mask = 0;
+    }
     std::cout << "\n\n";
     
     // pattern 2
@@ -255,7 +290,13 @@ void genMaskingPatterns(int **c, int version)
         }
         std::cout << std::endl;
     }
-    scorePattern(pat2, width);
+    score = scorePattern(pat2, width);
+    if (score < lowestScore)
+    {
+        lowestScore = score;
+        bestMask = pat2;
+        mask = 1;
+    }
     std::cout << "\n\n";
     
     // pattern 3
@@ -288,7 +329,13 @@ void genMaskingPatterns(int **c, int version)
         }
         std::cout << std::endl;
     }
-    scorePattern(pat3, width);
+    score = scorePattern(pat3, width);
+    if (score < lowestScore)
+    {
+        lowestScore = score;
+        bestMask = pat3;
+        mask = 2;
+    }
     std::cout << "\n\n";
     
     // pattern 4
@@ -321,7 +368,13 @@ void genMaskingPatterns(int **c, int version)
         }
         std::cout << std::endl;
     }
-    scorePattern(pat4, width);
+    score = scorePattern(pat4, width);
+    if (score < lowestScore)
+    {
+        lowestScore = score;
+        bestMask = pat4;
+        mask = 3;
+    }
     std::cout << "\n\n";
     
     // pattern 5
@@ -354,7 +407,13 @@ void genMaskingPatterns(int **c, int version)
         }
         std::cout << std::endl;
     }
-    scorePattern(pat5, width);
+    score = scorePattern(pat5, width);
+    if (score < lowestScore)
+    {
+        lowestScore = score;
+        bestMask = pat5;
+        mask = 4;
+    }
     std::cout << "\n\n";
     
     // pattern 6
@@ -387,7 +446,13 @@ void genMaskingPatterns(int **c, int version)
         }
         std::cout << std::endl;
     }
-    scorePattern(pat6, width);
+    score = scorePattern(pat6, width);
+    if (score < lowestScore)
+    {
+        lowestScore = score;
+        bestMask = pat6;
+        mask = 5;
+    }
     std::cout << "\n\n";
     
     // pattern 7
@@ -420,7 +485,13 @@ void genMaskingPatterns(int **c, int version)
         }
         std::cout << std::endl;
     }
-    scorePattern(pat7, width);
+    score = scorePattern(pat7, width);
+    if (score < lowestScore)
+    {
+        lowestScore = score;
+        bestMask = pat7;
+        mask = 6;
+    }
     std::cout << "\n\n";
     
     // pattern 8
@@ -453,9 +524,149 @@ void genMaskingPatterns(int **c, int version)
         }
         std::cout << std::endl;
     }
-    scorePattern(pat8, width);
+    score = scorePattern(pat8, width);
+    if (score < lowestScore)
+    {
+        lowestScore = score;
+        bestMask = pat8;
+        mask = 7;
+    }
     std::cout << "\n\n";
     
+    std::cout << "Mask " << mask << ": " << lowestScore << std::endl;
+    
+    int formatLength = 5;
+    int formatNum = mask;
+    int originalGen = 1335;
+    int genLength = 11;
+    // pad 0's on the right to length 15
+    for (formatLength; formatLength < 15; formatLength++)
+    {
+        formatNum *= 2;
+    }
+    
+    // do division with generator until length is 10 or less
+    formatLength = getLength(formatNum);
+    while (formatLength > 10)
+    {
+        int tempGen = originalGen;
+        int tempLen = genLength;
+        
+        for (tempLen; tempLen <= formatLength; tempLen++)
+        {
+            tempGen *= 2;
+        }
+        formatNum = formatNum ^ tempGen;
+        formatLength = getLength(formatNum);
+    }
+    
+    // pad the formatNumber to length 10
+    for (formatLength; formatLength < 9; formatLength++)
+    {
+        formatNum *= 2;
+    }
+    std::cout << formatLength << std::endl;
+    
+    std::vector<int> formatBinary = getBinary(formatNum, formatLength);
+    std::vector<int> origFormat = getBinary(mask, 4);
+    
+    for (int i = 0; i < formatBinary.size(); i++)
+    {
+        origFormat.push_back(formatBinary[i]);
+    }
+    
+    // place dark module in bestMask
+    bestMask[width - 8][8] = 1;
+    
+    // place timing patterns
+    int len;
+    if (version == 1)
+    {
+        len = 5;
+    }
+    else
+    {
+        len = 9;
+    }
+    // place pattern in the vertical and horizontal positions
+    int start = 1;
+    for (int i = 0; i < len; i++)
+    {
+        bestMask[6][8 + i] = start;
+        bestMask[8 + i][6] = start;
+        if (start == 1)
+            start = 0;
+        else
+            start = 1;
+    }
+    
+    // place format/version ECC
+    bestMask[8][0] = origFormat[0];
+    bestMask[8][1] = origFormat[1];
+    bestMask[8][2] = origFormat[2];
+    bestMask[8][3] = origFormat[3];
+    bestMask[8][4] = origFormat[4];
+    bestMask[8][5] = origFormat[5];
+    bestMask[8][7] = origFormat[6];
+    bestMask[8][8] = origFormat[7];
+    bestMask[7][8] = origFormat[8];
+    bestMask[5][8] = origFormat[9];
+    bestMask[4][8] = origFormat[10];
+    bestMask[3][8] = origFormat[11];
+    bestMask[2][8] = origFormat[12];
+    bestMask[1][8] = origFormat[13];
+    bestMask[0][8] = origFormat[14];
+    
+    bestMask[width - 1][8] = origFormat[0];
+    bestMask[width - 2][8] = origFormat[1];
+    bestMask[width - 3][8] = origFormat[2];
+    bestMask[width - 4][8] = origFormat[3];
+    bestMask[width - 5][8] = origFormat[4];
+    bestMask[width - 6][8] = origFormat[5];
+    bestMask[width - 7][8] = origFormat[6];
+    
+    bestMask[8][width - 8] = origFormat[7];
+    bestMask[8][width - 7] = origFormat[8];
+    bestMask[8][width - 6] = origFormat[9];
+    bestMask[8][width - 5] = origFormat[10];
+    bestMask[8][width - 4] = origFormat[11];
+    bestMask[8][width - 3] = origFormat[12];
+    bestMask[8][width - 2] = origFormat[13];
+    bestMask[8][width - 1] = origFormat[14];
+    
+    // add the quiet zone
+    width += 8;
+    int finalCode[width][width];
+    for (int i = 0; i < width; i++)
+    {
+        for (int j = 0; j < width; j++)
+        {
+            if (i < 4 || j < 4 || i > width - 5 || j > width - 5)
+            {
+                finalCode[i][j] = 0;
+            }
+            else
+            {
+                finalCode[i][j] = bestMask[i - 4][j - 4];
+            }
+        }
+    }
+    
+    
+    for (int i = 0; i < origFormat.size(); i++)
+    {
+        std::cout << origFormat[i];
+    }
+    std::cout << "\n";
+    
+    for (int i = 0; i < width; i++)
+    {
+        for (int j = 0; j < width; j++)
+        {
+            std::cout << finalCode[i][j] << " ";
+        }
+        std::cout << "\n";
+    }
 }
 
 void maskingControl(int **c, int version)
@@ -481,7 +692,7 @@ int main()
                           {0,0,0,0,0,0,0,0,1,1,0,1,0,0,1,0,0,0,1,0,1},
                           {1,1,1,1,1,1,1,0,1,0,1,0,0,0,0,1,0,1,1,0,0},
                           {1,0,0,0,0,0,1,0,0,1,0,1,1,0,1,1,0,1,0,0,0},
-                          {1,0,1,1,1,0,1,0,1,0,1,0,0,0,1,1,1,1,1,1,1},
+                          {1,0,1,1,1,0,1,0,1,0,0,0,0,0,1,1,1,1,1,1,1},
                           {1,0,1,1,1,0,1,0,0,1,0,1,0,1,0,1,0,0,0,1,0},
                           {1,0,1,1,1,0,1,0,1,0,0,0,1,1,1,1,0,1,0,0,1},
                           {1,0,0,0,0,0,1,0,1,0,1,1,0,1,0,0,0,1,0,1,1},
