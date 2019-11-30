@@ -19,12 +19,16 @@ SOURCES += \
     main.cpp \
     mainwindow.cpp \
     qrpage.cpp \
-    errorCorrection.cpp
+    errorCorrection.cpp \
+    buildMatrix.cpp \
+    finalMessage.cpp
 
 HEADERS += \
     mainwindow.h \
     qrpage.h \
-    errorCorrection.h
+    errorCorrection.h \
+    matrixfun.h \
+    messagefun.h
 
 FORMS += \
     mainwindow.ui \

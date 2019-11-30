@@ -5,6 +5,8 @@
 #include <string>
 #include <map>
 #include "errorCorrection.h"
+#include "messagefun.h"
+#include "matrixfun.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }

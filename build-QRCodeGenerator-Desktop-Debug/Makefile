@@ -55,12 +55,16 @@ OBJECTS_DIR   = ./
 SOURCES       = ../QRCodeGenerator/main.cpp \
 		../QRCodeGenerator/mainwindow.cpp \
 		../QRCodeGenerator/qrpage.cpp \
-		../QRCodeGenerator/errorCorrection.cpp moc_mainwindow.cpp \
+		../QRCodeGenerator/errorCorrection.cpp \
+		../QRCodeGenerator/buildMatrix.cpp \
+		../QRCodeGenerator/finalMessage.cpp moc_mainwindow.cpp \
 		moc_qrpage.cpp
 OBJECTS       = main.o \
 		mainwindow.o \
 		qrpage.o \
 		errorCorrection.o \
+		buildMatrix.o \
+		finalMessage.o \
 		moc_mainwindow.o \
 		moc_qrpage.o
 DIST          = /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/spec_pre.prf \
@@ -141,10 +145,14 @@ DIST          = /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/spec_pre.prf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/lex.prf \
 		../QRCodeGenerator/QRCodeGenerator.pro ../QRCodeGenerator/mainwindow.h \
 		../QRCodeGenerator/qrpage.h \
-		../QRCodeGenerator/errorCorrection.h ../QRCodeGenerator/main.cpp \
+		../QRCodeGenerator/errorCorrection.h \
+		../QRCodeGenerator/matrixfun.h \
+		../QRCodeGenerator/messagefun.h ../QRCodeGenerator/main.cpp \
 		../QRCodeGenerator/mainwindow.cpp \
 		../QRCodeGenerator/qrpage.cpp \
-		../QRCodeGenerator/errorCorrection.cpp
+		../QRCodeGenerator/errorCorrection.cpp \
+		../QRCodeGenerator/buildMatrix.cpp \
+		../QRCodeGenerator/finalMessage.cpp
 QMAKE_TARGET  = QRCodeGenerator
 DESTDIR       = 
 TARGET        = QRCodeGenerator
@@ -326,8 +334,8 @@ distdir: FORCE
 	@test -d $(DISTDIR) || mkdir -p $(DISTDIR)
 	$(COPY_FILE) --parents $(DIST) $(DISTDIR)/
 	$(COPY_FILE) --parents /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/data/dummy.cpp $(DISTDIR)/
-	$(COPY_FILE) --parents ../QRCodeGenerator/mainwindow.h ../QRCodeGenerator/qrpage.h ../QRCodeGenerator/errorCorrection.h $(DISTDIR)/
-	$(COPY_FILE) --parents ../QRCodeGenerator/main.cpp ../QRCodeGenerator/mainwindow.cpp ../QRCodeGenerator/qrpage.cpp ../QRCodeGenerator/errorCorrection.cpp $(DISTDIR)/
+	$(COPY_FILE) --parents ../QRCodeGenerator/mainwindow.h ../QRCodeGenerator/qrpage.h ../QRCodeGenerator/errorCorrection.h ../QRCodeGenerator/matrixfun.h ../QRCodeGenerator/messagefun.h $(DISTDIR)/
+	$(COPY_FILE) --parents ../QRCodeGenerator/main.cpp ../QRCodeGenerator/mainwindow.cpp ../QRCodeGenerator/qrpage.cpp ../QRCodeGenerator/errorCorrection.cpp ../QRCodeGenerator/buildMatrix.cpp ../QRCodeGenerator/finalMessage.cpp $(DISTDIR)/
 	$(COPY_FILE) --parents ../QRCodeGenerator/mainwindow.ui ../QRCodeGenerator/qrpage.ui $(DISTDIR)/
 
 
@@ -415,6 +423,12 @@ qrpage.o: ../QRCodeGenerator/qrpage.cpp ../QRCodeGenerator/qrpage.h \
 
 errorCorrection.o: ../QRCodeGenerator/errorCorrection.cpp ../QRCodeGenerator/errorCorrection.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o errorCorrection.o ../QRCodeGenerator/errorCorrection.cpp
+
+buildMatrix.o: ../QRCodeGenerator/buildMatrix.cpp ../QRCodeGenerator/matrixfun.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o buildMatrix.o ../QRCodeGenerator/buildMatrix.cpp
+
+finalMessage.o: ../QRCodeGenerator/finalMessage.cpp ../QRCodeGenerator/messagefun.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o finalMessage.o ../QRCodeGenerator/finalMessage.cpp
 
 moc_mainwindow.o: moc_mainwindow.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_mainwindow.o moc_mainwindow.cpp

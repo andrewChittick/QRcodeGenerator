@@ -226,7 +226,13 @@ void MainWindow::on_submitButton_clicked() {
     //to run error correction
     int * errorCorrectionWords = new int[numErrorWords];
     errorCorrection(codewords, numCodeWords, errorCorrectionWords, numErrorWords);
-
+    //convert errorCorrection words to binary
+    std::string * binaryErrorWords = new std::string[numErrorWords];
+    std::cout<<"here 1"<<std::endl;
+    for (int i=0; i < numErrorWords; i++){
+        binaryErrorWords[i] = decimalToBinary(std::to_string(errorCorrectionWords[i]), 8);
+    }
+    std::cout<<"here 2"<<std::endl;
     //test
     for (int i=0; i<numCodeWords; i++){
       std::cout<<codewords[i]<<std::endl;
@@ -236,6 +242,12 @@ void MainWindow::on_submitButton_clicked() {
     for (int i=0; i<numErrorWords; i++){
       std::cout<<errorCorrectionWords[i]<<std::endl;
     }
+
+    std::string finalMessage = makeFinalMessage(binaryErrorWords, codewords, numCodeWords, numErrorWords);
+
+
+
+    std::cout<<"final message: "<<finalMessage<<std::endl;
 
     delete [] errorCorrectionWords;//we are here
 

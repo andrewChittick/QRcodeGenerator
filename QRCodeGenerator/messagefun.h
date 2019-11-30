@@ -1,6 +1,8 @@
-#ifndef MESSAGEFUN
-#define MESSAGEFUN
+#ifndef _MESSAGEFUN_H_
+#define _MESSAGEFUN_H_
 
-std::string makeFinalMessage(std::string* codewords, int* data, int numCode, int numErr);
+#include <string>
+
+std::string makeFinalMessage(std::string *, std::string *, int, int);
 
 #endif

@@ -3,9 +3,9 @@
 #include <string>
 #include "messagefun.h"
 
-std::string makeFinalMessage(std::string* codewords, int* data, int numCode, int numErr)
+std::string makeFinalMessage(std::string* codewords, std::string* data, int numCode, int numErr)
 {
-	
+    std::cout<<"we are here"<<std::endl;
 	std::string finalStr = "";
 	
 	for(int i = 0; i < numCode; i++)
