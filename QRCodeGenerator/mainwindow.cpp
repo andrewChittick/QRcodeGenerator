@@ -250,6 +250,15 @@ void MainWindow::on_submitButton_clicked() {
 
     std::cout<<"final message: "<<finalMessage<<std::endl;
 
+    for (int i = 0; i < 21; i++)
+    {
+        for (int j = 0; j < 21; j++)
+        {
+            std::cout << layout[i][j] << " ";
+        }
+        std::cout << std::endl;
+    }
+
     delete [] errorCorrectionWords;
     delete [] binaryErrorWords;
 

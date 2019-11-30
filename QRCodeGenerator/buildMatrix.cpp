@@ -138,7 +138,7 @@ void layoutData(int **matrix, int **patterns, std::string data, int dim, int ver
     //Direction - -1 if sorting upwards, 1 if sorting downwards
     int direction = -1;
     int totalBits;
-    if(ver = 1)
+    if(ver == 1)
     {
         totalBits = 128;
     }
@@ -147,19 +147,22 @@ void layoutData(int **matrix, int **patterns, std::string data, int dim, int ver
         totalBits = 224;
     }
     int dataBits = 0;
-
+    std::cout << data << std::endl;
     while (dataBits < totalBits)
     {
         if(patterns[rightx][currenty] == 0)
         {
-            matrix[currenty][rightx] = data.at(dataBits); 
+            std::cout << matrix[currenty][rightx] << std::endl;
+            matrix[currenty][rightx] = int(data.at(dataBits));
+            std::cout << matrix[currenty][rightx] << std::endl;
             dataBits++;
-            
+            std::cout << "here2" << std::endl;
         }
         if(patterns[leftx][currenty] == 0)
         {
-            matrix[currenty][leftx] = data.at(dataBits);
+            matrix[currenty][leftx] = int(data.at(dataBits));
             dataBits++;
+            std::cout << "here3" << std::endl;
         }
         if(currenty == 0 && direction == -1)
         {
