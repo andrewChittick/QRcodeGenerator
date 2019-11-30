@@ -67,19 +67,9 @@ int **makeMatrix(int *data, int version)
 	patterns[darkx][8] = 1;
 	//Reserve format info with value 2 (format)
 	setInfoAreas(matrix, patterns, dim - 1);
-    layoutData(matrix, patterns, data, dim - 1, version);
+    	layoutData(matrix, patterns, data, dim - 1, version);
 
 	
-	/*for(int i= 0; i < dim; i++)
-	{
-	    for(int j= 0; j < dim; j++)
-	    {
-	        cout << matrix[i][j] << " ";
-	    }
-	    cout << "\n";
-	}
-	cout <<"\n";
-	*/
 	return matrix;
 }
 void addFinder(int **matrix, int **patterns, int cornerx, int cornery)
@@ -158,14 +148,12 @@ void layoutData(int **matrix, int **patterns, int *data, int dim, int ver)
         if(patterns[rightx][currenty] == 0)
         {
             matrix[currenty][rightx] = data[dataBits]; 
-            cout << data[dataBits] << " ";
             dataBits++;
             
         }
         if(patterns[leftx][currenty] == 0)
         {
             matrix[currenty][leftx] = data[dataBits];
-            cout << data[dataBits] << " ";
             dataBits++;
         }
         if(currenty == 0 && direction == -1)
