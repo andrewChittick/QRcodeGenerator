@@ -162,23 +162,23 @@ void layoutData(int **matrix, int **patterns, std::string data, int dim, int ver
         totalBits = 224;
     }
     int dataBits = 0;
+    totalBits = data.length() - 1;
+    std::cout << dim << std::endl;
 
 
-
+    int col = 0;
     while (dataBits < totalBits)
     {
+
+        std::cout << "(" << rightx << "," << currenty << ") (" << leftx << "," << currenty << ")" << std::endl;
         if(patterns[rightx][currenty] == 0)
         {
-            std::cout << matrix[currenty][rightx] << std::endl;
             matrix[currenty][rightx] = int(data.at(dataBits));
-            std::cout << matrix[currenty][rightx] << std::endl;
             dataBits++;
         }
         if(patterns[leftx][currenty] == 0)
         {
-            std::cout << matrix[currenty][leftx] << std::endl;
             matrix[currenty][leftx] = int(data.at(dataBits));
-            std::cout << matrix[currenty][leftx] << std::endl;
             dataBits++;
         }
         if(currenty == 0 && direction == -1)
@@ -186,21 +186,28 @@ void layoutData(int **matrix, int **patterns, std::string data, int dim, int ver
             direction = 1;
             rightx = rightx - 2;
             leftx = leftx - 2;
-
+            col++;
         }
         else if(currenty == dim && direction == 1)
         {
             direction = -1;
             rightx = rightx - 2;
             leftx = leftx - 2;
-            
+            col++;
         }
         else
         {
             currenty = currenty + direction;
-            
         }
-        std::cout << std::endl;
+        if (rightx == 6)
+        {
+            rightx -= 1;
+            leftx -= 1;
+        }
+        if (leftx < 0)
+        {
+            dataBits = totalBits;
+        }
     }
     for (int i = 0; i < 21; i++)
     {
