@@ -37,7 +37,7 @@ MOVE          = mv -f
 TAR           = tar -cf
 COMPRESS      = gzip -9f
 DISTNAME      = QRCodeGenerator1.0.0
-DISTDIR = /home/chittick/school/engineering/group/build-QRCodeGenerator-Desktop-Debug/.tmp/QRCodeGenerator1.0.0
+DISTDIR = /home/chittick/school/engineering/abc/build-QRCodeGenerator-Desktop-Debug/.tmp/QRCodeGenerator1.0.0
 LINK          = g++
 LFLAGS        = 
 LIBS          = $(SUBLIBS) /usr/lib/x86_64-linux-gnu/libQt5Widgets.so /usr/lib/x86_64-linux-gnu/libQt5Gui.so /usr/lib/x86_64-linux-gnu/libQt5Core.so /usr/lib/x86_64-linux-gnu/libGL.so -lpthread   
@@ -52,15 +52,21 @@ OBJECTS_DIR   = ./
 
 ####### Files
 
-SOURCES       = ../QRCodeGenerator/main.cpp \
+SOURCES       = ../QRCodeGenerator/createPNG.cpp \
+		../QRCodeGenerator/lodepng.cpp \
+		../QRCodeGenerator/main.cpp \
 		../QRCodeGenerator/mainwindow.cpp \
+		../QRCodeGenerator/masking.cpp \
 		../QRCodeGenerator/qrpage.cpp \
 		../QRCodeGenerator/errorCorrection.cpp \
 		../QRCodeGenerator/buildMatrix.cpp \
 		../QRCodeGenerator/finalMessage.cpp moc_mainwindow.cpp \
 		moc_qrpage.cpp
-OBJECTS       = main.o \
+OBJECTS       = createPNG.o \
+		lodepng.o \
+		main.o \
 		mainwindow.o \
+		masking.o \
 		qrpage.o \
 		errorCorrection.o \
 		buildMatrix.o \
@@ -143,12 +149,18 @@ DIST          = /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/spec_pre.prf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/exceptions.prf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/yacc.prf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/lex.prf \
-		../QRCodeGenerator/QRCodeGenerator.pro ../QRCodeGenerator/mainwindow.h \
+		../QRCodeGenerator/QRCodeGenerator.pro ../QRCodeGenerator/createPNG.h \
+		../QRCodeGenerator/lodepng.h \
+		../QRCodeGenerator/mainwindow.h \
+		../QRCodeGenerator/masking.h \
 		../QRCodeGenerator/qrpage.h \
 		../QRCodeGenerator/errorCorrection.h \
 		../QRCodeGenerator/matrixfun.h \
-		../QRCodeGenerator/messagefun.h ../QRCodeGenerator/main.cpp \
+		../QRCodeGenerator/messagefun.h ../QRCodeGenerator/createPNG.cpp \
+		../QRCodeGenerator/lodepng.cpp \
+		../QRCodeGenerator/main.cpp \
 		../QRCodeGenerator/mainwindow.cpp \
+		../QRCodeGenerator/masking.cpp \
 		../QRCodeGenerator/qrpage.cpp \
 		../QRCodeGenerator/errorCorrection.cpp \
 		../QRCodeGenerator/buildMatrix.cpp \
@@ -334,8 +346,8 @@ distdir: FORCE
 	@test -d $(DISTDIR) || mkdir -p $(DISTDIR)
 	$(COPY_FILE) --parents $(DIST) $(DISTDIR)/
 	$(COPY_FILE) --parents /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/data/dummy.cpp $(DISTDIR)/
-	$(COPY_FILE) --parents ../QRCodeGenerator/mainwindow.h ../QRCodeGenerator/qrpage.h ../QRCodeGenerator/errorCorrection.h ../QRCodeGenerator/matrixfun.h ../QRCodeGenerator/messagefun.h $(DISTDIR)/
-	$(COPY_FILE) --parents ../QRCodeGenerator/main.cpp ../QRCodeGenerator/mainwindow.cpp ../QRCodeGenerator/qrpage.cpp ../QRCodeGenerator/errorCorrection.cpp ../QRCodeGenerator/buildMatrix.cpp ../QRCodeGenerator/finalMessage.cpp $(DISTDIR)/
+	$(COPY_FILE) --parents ../QRCodeGenerator/createPNG.h ../QRCodeGenerator/lodepng.h ../QRCodeGenerator/mainwindow.h ../QRCodeGenerator/masking.h ../QRCodeGenerator/qrpage.h ../QRCodeGenerator/errorCorrection.h ../QRCodeGenerator/matrixfun.h ../QRCodeGenerator/messagefun.h $(DISTDIR)/
+	$(COPY_FILE) --parents ../QRCodeGenerator/createPNG.cpp ../QRCodeGenerator/lodepng.cpp ../QRCodeGenerator/main.cpp ../QRCodeGenerator/mainwindow.cpp ../QRCodeGenerator/masking.cpp ../QRCodeGenerator/qrpage.cpp ../QRCodeGenerator/errorCorrection.cpp ../QRCodeGenerator/buildMatrix.cpp ../QRCodeGenerator/finalMessage.cpp $(DISTDIR)/
 	$(COPY_FILE) --parents ../QRCodeGenerator/mainwindow.ui ../QRCodeGenerator/qrpage.ui $(DISTDIR)/
 
 
@@ -373,14 +385,16 @@ compiler_moc_header_clean:
 	-$(DEL_FILE) moc_mainwindow.cpp moc_qrpage.cpp
 moc_mainwindow.cpp: ../QRCodeGenerator/mainwindow.h \
 		../QRCodeGenerator/errorCorrection.h \
+		../QRCodeGenerator/messagefun.h \
+		../QRCodeGenerator/matrixfun.h \
 		moc_predefs.h \
 		/usr/lib/qt5/bin/moc
-	/usr/lib/qt5/bin/moc $(DEFINES) --include /home/chittick/school/engineering/group/build-QRCodeGenerator-Desktop-Debug/moc_predefs.h -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++ -I/home/chittick/school/engineering/group/QRCodeGenerator -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I. -I/usr/include/c++/9 -I/usr/include/x86_64-linux-gnu/c++/9 -I/usr/include/c++/9/backward -I/usr/lib/gcc/x86_64-linux-gnu/9/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/9/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include ../QRCodeGenerator/mainwindow.h -o moc_mainwindow.cpp
+	/usr/lib/qt5/bin/moc $(DEFINES) --include /home/chittick/school/engineering/abc/build-QRCodeGenerator-Desktop-Debug/moc_predefs.h -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++ -I/home/chittick/school/engineering/abc/QRCodeGenerator -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I. -I/usr/include/c++/9 -I/usr/include/x86_64-linux-gnu/c++/9 -I/usr/include/c++/9/backward -I/usr/lib/gcc/x86_64-linux-gnu/9/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/9/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include ../QRCodeGenerator/mainwindow.h -o moc_mainwindow.cpp
 
 moc_qrpage.cpp: ../QRCodeGenerator/qrpage.h \
 		moc_predefs.h \
 		/usr/lib/qt5/bin/moc
-	/usr/lib/qt5/bin/moc $(DEFINES) --include /home/chittick/school/engineering/group/build-QRCodeGenerator-Desktop-Debug/moc_predefs.h -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++ -I/home/chittick/school/engineering/group/QRCodeGenerator -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I. -I/usr/include/c++/9 -I/usr/include/x86_64-linux-gnu/c++/9 -I/usr/include/c++/9/backward -I/usr/lib/gcc/x86_64-linux-gnu/9/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/9/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include ../QRCodeGenerator/qrpage.h -o moc_qrpage.cpp
+	/usr/lib/qt5/bin/moc $(DEFINES) --include /home/chittick/school/engineering/abc/build-QRCodeGenerator-Desktop-Debug/moc_predefs.h -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++ -I/home/chittick/school/engineering/abc/QRCodeGenerator -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I. -I/usr/include/c++/9 -I/usr/include/x86_64-linux-gnu/c++/9 -I/usr/include/c++/9/backward -I/usr/lib/gcc/x86_64-linux-gnu/9/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/9/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include ../QRCodeGenerator/qrpage.h -o moc_qrpage.cpp
 
 compiler_moc_objc_header_make_all:
 compiler_moc_objc_header_clean:
@@ -407,15 +421,30 @@ compiler_clean: compiler_moc_predefs_clean compiler_moc_header_clean compiler_ui
 
 ####### Compile
 
+createPNG.o: ../QRCodeGenerator/createPNG.cpp 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o createPNG.o ../QRCodeGenerator/createPNG.cpp
+
+lodepng.o: ../QRCodeGenerator/lodepng.cpp ../QRCodeGenerator/lodepng.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o lodepng.o ../QRCodeGenerator/lodepng.cpp
+
 main.o: ../QRCodeGenerator/main.cpp ../QRCodeGenerator/mainwindow.h \
-		../QRCodeGenerator/errorCorrection.h
+		../QRCodeGenerator/errorCorrection.h \
+		../QRCodeGenerator/messagefun.h \
+		../QRCodeGenerator/matrixfun.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o main.o ../QRCodeGenerator/main.cpp
 
 mainwindow.o: ../QRCodeGenerator/mainwindow.cpp ../QRCodeGenerator/mainwindow.h \
 		../QRCodeGenerator/errorCorrection.h \
+		../QRCodeGenerator/messagefun.h \
+		../QRCodeGenerator/matrixfun.h \
 		ui_mainwindow.h \
-		../QRCodeGenerator/qrpage.h
+		../QRCodeGenerator/qrpage.h \
+		../QRCodeGenerator/masking.h \
+		../QRCodeGenerator/createPNG.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o mainwindow.o ../QRCodeGenerator/mainwindow.cpp
+
+masking.o: ../QRCodeGenerator/masking.cpp 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o masking.o ../QRCodeGenerator/masking.cpp
 
 qrpage.o: ../QRCodeGenerator/qrpage.cpp ../QRCodeGenerator/qrpage.h \
 		ui_qrpage.h
