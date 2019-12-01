@@ -18,6 +18,7 @@ DEFINES += QT_DEPRECATED_WARNINGS
 SOURCES += \
     main.cpp \
     mainwindow.cpp \
+    masking.cpp \
     qrpage.cpp \
     errorCorrection.cpp \
     buildMatrix.cpp \
@@ -25,6 +26,7 @@ SOURCES += \
 
 HEADERS += \
     mainwindow.h \
+    masking.h \
     qrpage.h \
     errorCorrection.h \
     matrixfun.h \

@@ -5,6 +5,7 @@
 #include <map>
 #include <iostream>
 #include "qrpage.h"
+#include "masking.h"
 
 int level;
 
@@ -250,9 +251,11 @@ void MainWindow::on_submitButton_clicked() {
 
     std::cout<<"final message: "<<finalMessage<<std::endl;
 
-    for (int i = 0; i < 21; i++)
+    layout = genMaskingPatterns(layout, level);
+
+    for (int i = 0; i < 29; i++)
     {
-        for (int j = 0; j < 21; j++)
+        for (int j = 0; j < 29; j++)
         {
             std::cout << layout[i][j] << " ";
         }
