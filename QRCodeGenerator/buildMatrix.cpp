@@ -53,6 +53,7 @@ int **makeMatrix(std::string data, int version)
 			matrix[20][16 + i] = 1;
 			matrix[16 + i][20] = 1;
 		}
+        matrix[18][18] = 1;
 		for(int i= 0; i < 5; i++)
 		{
 			for(int j= 0; j < 5; j++)
@@ -209,9 +210,9 @@ void layoutData(int **matrix, int **patterns, std::string data, int dim, int ver
             dataBits = totalBits;
         }
     }
-    for (int i = 0; i < 21; i++)
+    for (int i = 0; i < dim + 1; i++)
     {
-        for (int j = 0; j < 21; j++)
+        for (int j = 0; j < dim + 1; j++)
         {
             if (matrix[i][j] == 48 || matrix[i][j] == 49)
             {
