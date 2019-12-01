@@ -278,7 +278,7 @@ int **genMaskingPatterns(int **c, int version)
                     flipBit = true;
                 }
             }
-            if (flipBit && (j) % 2 == 0)
+            if (flipBit && (i) % 2 == 0)
             {
                 if (pat2[i][j] == 0)
                     pat2[i][j] = 1;
@@ -317,7 +317,7 @@ int **genMaskingPatterns(int **c, int version)
                     flipBit = true;
                 }
             }
-            if (flipBit && (i) % 3 == 0)
+            if (flipBit && (j) % 3 == 0)
             {
                 if (pat3[i][j] == 0)
                     pat3[i][j] = 1;
