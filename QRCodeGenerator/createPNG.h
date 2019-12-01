@@ -3,7 +3,7 @@
 
 #include <iostream>
 #include <vector>
-#include "../makePNGprototype/lodepng.h"
+#include "lodepng.h"
 
 void makeImage(int ,int**);
 void encodeOneStep(const char* , std::vector<unsigned char>& , unsigned , unsigned);

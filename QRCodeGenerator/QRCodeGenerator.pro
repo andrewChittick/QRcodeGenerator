@@ -17,6 +17,7 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 SOURCES += \
     createPNG.cpp \
+    lodepng.cpp \
     main.cpp \
     mainwindow.cpp \
     masking.cpp \
@@ -27,6 +28,7 @@ SOURCES += \
 
 HEADERS += \
     createPNG.h \
+    lodepng.h \
     mainwindow.h \
     masking.h \
     qrpage.h \
