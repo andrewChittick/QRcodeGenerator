@@ -263,7 +263,7 @@ void MainWindow::on_submitButton_clicked() {
         std::cout << std::endl;
     }
 
-
+    makeImage(layout, level);
 
     delete [] errorCorrectionWords;
     delete [] binaryErrorWords;
