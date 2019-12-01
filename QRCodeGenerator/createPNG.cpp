@@ -1,3 +1,5 @@
+#include <vector>
+
 //createPNG.cpp
 //Marcellus Hunt
 //10/15/19
@@ -13,7 +15,7 @@ void makeImage(int level,int ** input[]){
 		//for the 29 x 29 matrix
 		
 		//if version 1
-		if (level) ==1
+        if (level ==1)
 		{
 			std::vector<unsigned char> newImage (3364, 255);
 			

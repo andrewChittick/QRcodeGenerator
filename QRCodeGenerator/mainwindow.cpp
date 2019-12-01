@@ -6,6 +6,7 @@
 #include <iostream>
 #include "qrpage.h"
 #include "masking.h"
+#include "createPNG.h"
 
 int level;
 
@@ -261,6 +262,8 @@ void MainWindow::on_submitButton_clicked() {
         }
         std::cout << std::endl;
     }
+
+    makeImage(level, layout);
 
     delete [] errorCorrectionWords;
     delete [] binaryErrorWords;
