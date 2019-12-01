@@ -33,5 +33,6 @@ private:
     std::string decimalToBinary(std::string input, int binarySize);
     std::string primaryColor();
     std::string secondaryColor();
+    void makeImage(int**, int);
 };
 #endif // MAINWINDOW_H

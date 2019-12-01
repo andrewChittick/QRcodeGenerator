@@ -1,11 +1,6 @@
 #ifndef CREATEPNG_H
 #define CREATEPNG_H
 
-#include <iostream>
-#include <vector>
-#include "lodepng.h"
-
-void makeImage(int ,int**);
-void encodeOneStep(const char* , std::vector<unsigned char>& , unsigned , unsigned);
+void makeImage(int**, int);
 
 #endif // CREATEPNG_H
