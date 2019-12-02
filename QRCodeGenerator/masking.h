@@ -6,6 +6,6 @@
 int scorePattern(int**, int);
 int getLength(int);
 std::vector<int> getBinary(int, int);
-int **genMaskingPatterns(int**, int);
+void genMaskingPatterns(int**, int);
 
 #endif
