@@ -1,0 +1,11 @@
+release/createPNG.o
+release/lodepng.o
+release/main.o
+release/mainwindow.o
+release/masking.o
+release/qrpage.o
+release/errorCorrection.o
+release/buildMatrix.o
+release/finalMessage.o
+release/moc_mainwindow.o
+release/moc_qrpage.o

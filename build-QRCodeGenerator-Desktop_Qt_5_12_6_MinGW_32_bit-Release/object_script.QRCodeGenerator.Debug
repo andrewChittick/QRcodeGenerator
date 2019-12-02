@@ -1,0 +1,11 @@
+debug/createPNG.o
+debug/lodepng.o
+debug/main.o
+debug/mainwindow.o
+debug/masking.o
+debug/qrpage.o
+debug/errorCorrection.o
+debug/buildMatrix.o
+debug/finalMessage.o
+debug/moc_mainwindow.o
+debug/moc_qrpage.o

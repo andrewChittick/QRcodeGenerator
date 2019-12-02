@@ -1,21 +1,18 @@
 #include "qrpage.h"
 #include "ui_qrpage.h"
 #include <iostream>
+#include <windows.h>
 
 QRPage::QRPage(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::QRPage)
 {
     ui->setupUi(this);
-    QString filename = "/icon.png";
-    ui->label->setAlignment(Qt::AlignCenter);
-    QPixmap pix;
-    if (pix.load(filename))
-    {
-        std::cout << "here" << std::endl;
-        pix = pix.scaled(ui->label->size(), Qt::KeepAspectRatio);
-        ui->label->setPixmap(pix);
-    }
+    SetCurrentDirectoryA("..");
+    SetCurrentDirectoryA(".\\build-QRCodeGenerator-Desktop_Qt_5_12_6_MinGW_32_bit-Release");
+    ui->label->setPixmap(QPixmap("QR.png"));
+    ui->label->setScaledContents(true);
+
 }
 
 QRPage::~QRPage()
