@@ -7,6 +7,7 @@
 #include "qrpage.h"
 #include "masking.h"
 #include "createPNG.h"
+#include <algorithm>
 
 int level;
 
@@ -108,6 +109,7 @@ std::string * MainWindow::dataEncoding() {
 
     // Converting QTCreator qstring to c++ std::string
     std::string input = ui->userInput->text().toStdString();
+    std::transform(input.begin(), input.end(), input.begin(), ::toupper);
 
     // Get version number from the string length
     int versionNumber = chooseVersion(input);
@@ -198,16 +200,6 @@ std::string * MainWindow::dataEncoding() {
     return codeWordsFinal;
 
 
-}
-
-std::string MainWindow::primaryColor() {
-    QString primaryColor = ui->comboBox->currentData().toString();
-    return primaryColor.toStdString();
-}
-
-std::string MainWindow::secondaryColor() {
-    QString secondaryColor = ui->comboBox_2->currentData().toString();
-    return secondaryColor.toStdString();
 }
 
 void MainWindow::on_submitButton_clicked() {

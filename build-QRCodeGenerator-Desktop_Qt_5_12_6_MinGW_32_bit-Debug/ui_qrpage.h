@@ -31,16 +31,16 @@ public:
     {
         if (QRPage->objectName().isEmpty())
             QRPage->setObjectName(QString::fromUtf8("QRPage"));
-        QRPage->resize(800, 600);
+        QRPage->resize(583, 478);
         centralwidget = new QWidget(QRPage);
         centralwidget->setObjectName(QString::fromUtf8("centralwidget"));
         label = new QLabel(centralwidget);
         label->setObjectName(QString::fromUtf8("label"));
-        label->setGeometry(QRect(80, 80, 131, 41));
+        label->setGeometry(QRect(30, 30, 71, 41));
         QRPage->setCentralWidget(centralwidget);
         menubar = new QMenuBar(QRPage);
         menubar->setObjectName(QString::fromUtf8("menubar"));
-        menubar->setGeometry(QRect(0, 0, 800, 21));
+        menubar->setGeometry(QRect(0, 0, 583, 21));
         QRPage->setMenuBar(menubar);
         statusbar = new QStatusBar(QRPage);
         statusbar->setObjectName(QString::fromUtf8("statusbar"));
