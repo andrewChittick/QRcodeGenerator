@@ -50,7 +50,27 @@
        </item>
        <item>
         <property name="text">
+         <string>Red</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
          <string>Purple</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>Blue</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>Orange</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>Green</string>
         </property>
        </item>
        <item>
@@ -76,7 +96,7 @@
      <x>0</x>
      <y>0</y>
      <width>661</width>
-     <height>21</height>
+     <height>26</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuQRCodeGenerator">

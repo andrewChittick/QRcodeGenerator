@@ -36,7 +36,7 @@ public:
         centralwidget->setObjectName(QString::fromUtf8("centralwidget"));
         label = new QLabel(centralwidget);
         label->setObjectName(QString::fromUtf8("label"));
-        label->setGeometry(QRect(30, 30, 71, 41));
+        label->setGeometry(QRect(90, 10, 400, 400));
         QRPage->setCentralWidget(centralwidget);
         menubar = new QMenuBar(QRPage);
         menubar->setObjectName(QString::fromUtf8("menubar"));

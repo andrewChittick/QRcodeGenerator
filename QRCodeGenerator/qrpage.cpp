@@ -7,8 +7,7 @@ QRPage::QRPage(QWidget *parent) :
     ui(new Ui::QRPage)
 {
     ui->setupUi(this);
-    ui->label->setPixmap(QPixmap("QR.png"));
-    ui->label->setScaledContents(true);
+    ui->label->setPixmap(QPixmap("QR.png").scaled(400, 400, Qt::IgnoreAspectRatio, Qt::FastTransformation));
 
 }
 
