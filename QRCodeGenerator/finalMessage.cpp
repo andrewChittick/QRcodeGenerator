@@ -16,7 +16,7 @@ std::string makeFinalMessage(std::string* codewords, std::string* data, int numC
 	{
 		finalStr += codewords[i];
 	}
-	if(numCode = 28)
+	if(numCode == 28)
 	{
 		finalStr += "0000000";
 	}
