@@ -508,76 +508,71 @@ void genMaskingPatterns(int **c, int version)
     int formatNum = mask;
     int originalGen = 1335;
     int genLength = 11;
-    std::vector<int> origFormat;
-    // pad 0's on the right to length 15
+    int origFormat[15];
+
     if (formatNum == 0)
     {
-        formatLength = 15;
         int bin[15] = {1,0,1,0,1,0,0,0,0,0,1,0,0,1,0};
         for (int i = 0; i < 15; i++)
         {
-            origFormat.push_back(bin[i]);
+            origFormat[i] = bin[i];
         }
     }
-    else
+    else if (formatNum == 1)
     {
-        for (formatLength; getLength(formatNum) < 15; formatLength++)
+        int bin[15] = {1,0,1,0,0,0,1,0,0,1,0,0,1,0,1};
+        for (int i = 0; i < 15; i++)
         {
-            formatNum *= 2;
+            origFormat[i] = bin[i];
         }
-
-        std::cout << formatNum << " " << getLength(formatNum) << std::endl;
-
-        // do division with generator until length is 10 or less
-        formatLength = getLength(formatNum);
-        while (getLength(formatNum) > 10)
+    }
+    else if (formatNum == 2)
+    {
+        int bin[15] = {1,0,1,1,1,1,0,0,1,1,1,1,1,0,0};
+        for (int i = 0; i < 15; i++)
         {
-            int tempGen = originalGen;
-            int tempLen = genLength;
-
-            for (tempLen; tempLen <= getLength(formatNum); tempLen++)
-            {
-                tempGen *= 2;
-            }
-            formatNum = formatNum ^ tempGen;
-            formatLength = getLength(formatNum);
+            origFormat[i] = bin[i];
         }
-        std::cout << getLength(formatNum) << std::endl;
-
-        // pad the formatNumber to length 10
-        bool keepGoing = true;
-        while (keepGoing)
+    }
+    else if (formatNum == 3)
+    {
+        int bin[15] = {1,0,1,1,0,1,1,0,1,0,0,1,0,1,1};
+        for (int i = 0; i < 15; i++)
         {
-            if (getLength(formatNum) == 10)
-            {
-                keepGoing = false;
-            }
-            else
-            {
-                formatNum *= 2;
-            }
-            formatLength = getLength(formatNum);
+            origFormat[i] = bin[i];
         }
-
-        std::vector<int> formatBinary = getBinary(formatNum, formatLength - 1);
-        std::vector<int> origFormat = getBinary(mask, 4);
-
-        for (int i = 0; i < formatBinary.size(); i++)
+    }
+    else if (formatNum == 4)
+    {
+        int bin[15] = {1,0,0,0,1,0,1,1,1,1,1,1,0,0,1};
+        for (int i = 0; i < 15; i++)
         {
-            origFormat.push_back(formatBinary[i]);
+            origFormat[i] = bin[i];
         }
-
-        std::vector<int> specXOR = getBinary(21522, 14);
-
-        for (int i = 0; i < origFormat.size(); i++)
+    }
+    else if (formatNum == 5)
+    {
+        int bin[15] = {1,0,0,0,0,0,0,1,1,0,0,1,1,1,0};
+        for (int i = 0; i < 15; i++)
         {
-            if (origFormat[i] != specXOR[i])
-                origFormat[i] = 1;
-            else
-                origFormat[i] = 0;
-            std::cout << origFormat[i];
+            origFormat[i] = bin[i];
         }
-        std::cout << std::endl;
+    }
+    else if (formatNum == 6)
+    {
+        int bin[15] = {1,0,0,1,1,1,1,1,0,0,1,0,1,1,1};
+        for (int i = 0; i < 15; i++)
+        {
+            origFormat[i] = bin[i];
+        }
+    }
+    else if (formatNum == 7)
+    {
+        int bin[15] = {1,0,0,1,0,1,0,1,0,1,0,0,0,0,0};
+        for (int i = 0; i < 15; i++)
+        {
+            origFormat[i] = bin[i];
+        }
     }
 
 
