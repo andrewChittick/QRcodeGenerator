@@ -216,7 +216,7 @@ void genMaskingPatterns(int **c, int version)
         width = 25;
     }
 
-    int lowestScore = 999;
+    int lowestScore = 999999;
     int **bestMask;
     int mask;
     
@@ -508,63 +508,78 @@ void genMaskingPatterns(int **c, int version)
     int formatNum = mask;
     int originalGen = 1335;
     int genLength = 11;
+    std::vector<int> origFormat;
     // pad 0's on the right to length 15
-    for (formatLength; getLength(formatNum) < 15; formatLength++)
+    if (formatNum == 0)
     {
-        formatNum *= 2;
-    }
-    std::cout << formatNum << " " << getLength(formatNum) << std::endl;
-    
-    // do division with generator until length is 10 or less
-    formatLength = getLength(formatNum);
-    while (getLength(formatNum) > 10)
-    {
-        int tempGen = originalGen;
-        int tempLen = genLength;
-        
-        for (tempLen; tempLen <= getLength(formatNum); tempLen++)
+        formatLength = 15;
+        int bin[15] = {1,0,1,0,1,0,0,0,0,0,1,0,0,1,0};
+        for (int i = 0; i < 15; i++)
         {
-            tempGen *= 2;
+            origFormat.push_back(bin[i]);
         }
-        formatNum = formatNum ^ tempGen;
-        formatLength = getLength(formatNum);
     }
-    std::cout << getLength(formatNum) << std::endl;
-    
-    // pad the formatNumber to length 10
-    bool keepGoing = true;
-    while (keepGoing)
+    else
     {
-        if (getLength(formatNum) == 10)
-        {
-            keepGoing = false;
-        }
-        else
+        for (formatLength; getLength(formatNum) < 15; formatLength++)
         {
             formatNum *= 2;
         }
-        formatLength = getLength(formatNum);
-    }
-    
-    std::vector<int> formatBinary = getBinary(formatNum, formatLength - 1);
-    std::vector<int> origFormat = getBinary(mask, 4);
-    
-    for (int i = 0; i < formatBinary.size(); i++)
-    {
-        origFormat.push_back(formatBinary[i]);
-    }
-    
-    std::vector<int> specXOR = getBinary(21522, 14);
 
-    for (int i = 0; i < origFormat.size(); i++)
-    {
-        if (origFormat[i] != specXOR[i])
-            origFormat[i] = 1;
-        else
-            origFormat[i] = 0;
-        std::cout << origFormat[i];
+        std::cout << formatNum << " " << getLength(formatNum) << std::endl;
+
+        // do division with generator until length is 10 or less
+        formatLength = getLength(formatNum);
+        while (getLength(formatNum) > 10)
+        {
+            int tempGen = originalGen;
+            int tempLen = genLength;
+
+            for (tempLen; tempLen <= getLength(formatNum); tempLen++)
+            {
+                tempGen *= 2;
+            }
+            formatNum = formatNum ^ tempGen;
+            formatLength = getLength(formatNum);
+        }
+        std::cout << getLength(formatNum) << std::endl;
+
+        // pad the formatNumber to length 10
+        bool keepGoing = true;
+        while (keepGoing)
+        {
+            if (getLength(formatNum) == 10)
+            {
+                keepGoing = false;
+            }
+            else
+            {
+                formatNum *= 2;
+            }
+            formatLength = getLength(formatNum);
+        }
+
+        std::vector<int> formatBinary = getBinary(formatNum, formatLength - 1);
+        std::vector<int> origFormat = getBinary(mask, 4);
+
+        for (int i = 0; i < formatBinary.size(); i++)
+        {
+            origFormat.push_back(formatBinary[i]);
+        }
+
+        std::vector<int> specXOR = getBinary(21522, 14);
+
+        for (int i = 0; i < origFormat.size(); i++)
+        {
+            if (origFormat[i] != specXOR[i])
+                origFormat[i] = 1;
+            else
+                origFormat[i] = 0;
+            std::cout << origFormat[i];
+        }
+        std::cout << std::endl;
     }
-    std::cout << std::endl;
+
 
     // place dark module in bestMask
     bestMask[width - 8][8] = 1;
