@@ -202,6 +202,13 @@ std::string * MainWindow::dataEncoding() {
 
 }
 
+std::string MainWindow::getColor() {
+    QString color = ui->comboBox->currentText();
+    std::string selectedColor = color.toStdString();
+    std::cout << selectedColor << std::endl;
+    return selectedColor;
+}
+
 void MainWindow::on_submitButton_clicked() {
     int numCodeWords, numErrorWords;
 
