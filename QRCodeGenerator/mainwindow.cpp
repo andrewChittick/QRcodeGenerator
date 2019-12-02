@@ -224,7 +224,7 @@ void MainWindow::on_submitButton_clicked() {
     std::string * binaryErrorWords = new std::string[numErrorWords];
     std::cout<<"here 1"<<std::endl;
     for (int i=0; i < numErrorWords; i++){
-        binaryErrorWords[i] = decimalToBinary(std::to_string(errorCorrectionWords[i]), 8);
+        binaryErrorWords[i] = decimalToBinary(std::to_string(errorCorrectionWords[i]), 7);
     }
     std::cout<<"here 2"<<std::endl;
     //test
