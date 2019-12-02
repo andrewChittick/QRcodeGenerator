@@ -1,6 +1,7 @@
 #include <iostream>
 #include <cmath>
 #include <vector>
+#include <QImage>
 
 int scorePattern(int **c, int width)
 {
@@ -64,6 +65,7 @@ int scorePattern(int **c, int width)
                 score += 3;
                 counter -= 5;
                 score += counter;
+                counter = 0;
             }
         }
         currentColor = 2;
@@ -174,7 +176,6 @@ int scorePattern(int **c, int width)
     else
         score += bottomFactor * 10;
     
-    std::cout << "Score: " << score << std::endl;
     return score;
 }
 
@@ -202,7 +203,7 @@ std::vector<int> getBinary(int a, int len)
     return binary;
 }
 
-int **genMaskingPatterns(int **c, int version)
+void genMaskingPatterns(int **c, int version)
 {
     int width;
     
@@ -222,7 +223,6 @@ int **genMaskingPatterns(int **c, int version)
     bool flipBit = false;
     
     // pattern 1
-    std::cout << "Mask 1: " << std::endl;
     int **pat1 = c;
     for (int i = 0; i < width; i++)
     {
@@ -239,7 +239,7 @@ int **genMaskingPatterns(int **c, int version)
                     flipBit = true;
                 }
             }
-            if (flipBit && (i + j) % 2 == 0)
+            if (flipBit && ((i + j) % 2) == 0)
             {
                 if (pat1[i][j] == 0)
                     pat1[i][j] = 1;
@@ -247,9 +247,7 @@ int **genMaskingPatterns(int **c, int version)
                     pat1[i][j] = 0;
             }
             flipBit = false;
-            std::cout << pat1[i][j] << " ";
         }
-        std::cout << std::endl;
     }
     int score = scorePattern(pat1, width);
     if (score < lowestScore)
@@ -258,10 +256,8 @@ int **genMaskingPatterns(int **c, int version)
         bestMask = pat1;
         mask = 0;
     }
-    std::cout << "\n\n";
     
     // pattern 2
-    std::cout << "Mask 2: " << std::endl;
     int **pat2 = c;
     for (int i = 0; i < width; i++)
     {
@@ -286,9 +282,7 @@ int **genMaskingPatterns(int **c, int version)
                     pat2[i][j] = 0;
             }
             flipBit = false;
-            std::cout << pat2[i][j] << " ";
         }
-        std::cout << std::endl;
     }
     score = scorePattern(pat2, width);
     if (score < lowestScore)
@@ -297,10 +291,8 @@ int **genMaskingPatterns(int **c, int version)
         bestMask = pat2;
         mask = 1;
     }
-    std::cout << "\n\n";
     
     // pattern 3
-    std::cout << "Mask 3: " << std::endl;
     int **pat3 = c;
     for (int i = 0; i < width; i++)
     {
@@ -325,9 +317,7 @@ int **genMaskingPatterns(int **c, int version)
                     pat3[i][j] = 0;
             }
             flipBit = false;
-            std::cout << pat3[i][j] << " ";
         }
-        std::cout << std::endl;
     }
     score = scorePattern(pat3, width);
     if (score < lowestScore)
@@ -336,10 +326,8 @@ int **genMaskingPatterns(int **c, int version)
         bestMask = pat3;
         mask = 2;
     }
-    std::cout << "\n\n";
     
     // pattern 4
-    std::cout << "Mask 4: " << std::endl;
     int **pat4 = c;
     for (int i = 0; i < width; i++)
     {
@@ -356,7 +344,7 @@ int **genMaskingPatterns(int **c, int version)
                     flipBit = true;
                 }
             }
-            if (flipBit && (i + j) % 3 == 0)
+            if (flipBit && ((i + j) % 3) == 0)
             {
                 if (pat4[i][j] == 0)
                     pat4[i][j] = 1;
@@ -364,9 +352,7 @@ int **genMaskingPatterns(int **c, int version)
                     pat4[i][j] = 0;
             }
             flipBit = false;
-            std::cout << pat4[i][j] << " ";
         }
-        std::cout << std::endl;
     }
     score = scorePattern(pat4, width);
     if (score < lowestScore)
@@ -375,10 +361,8 @@ int **genMaskingPatterns(int **c, int version)
         bestMask = pat4;
         mask = 3;
     }
-    std::cout << "\n\n";
     
     // pattern 5
-    std::cout << "Mask 5: " << std::endl;
     int **pat5 = c;
     for (int i = 0; i < width; i++)
     {
@@ -395,7 +379,7 @@ int **genMaskingPatterns(int **c, int version)
                     flipBit = true;
                 }
             }
-            if (flipBit && int(j / 2) + int(i / 3) % 2 == 0)
+            if (flipBit && (int(i / 2) + int(j / 3) % 2) == 0)
             {
                 if (pat5[i][j] == 0)
                     pat5[i][j] = 1;
@@ -403,9 +387,7 @@ int **genMaskingPatterns(int **c, int version)
                     pat5[i][j] = 0;
             }
             flipBit = false;
-            std::cout << pat5[i][j] << " ";
         }
-        std::cout << std::endl;
     }
     score = scorePattern(pat5, width);
     if (score < lowestScore)
@@ -414,10 +396,8 @@ int **genMaskingPatterns(int **c, int version)
         bestMask = pat5;
         mask = 4;
     }
-    std::cout << "\n\n";
     
     // pattern 6
-    std::cout << "Mask 6: " << std::endl;
     int **pat6 = c;
     for (int i = 0; i < width; i++)
     {
@@ -434,7 +414,7 @@ int **genMaskingPatterns(int **c, int version)
                     flipBit = true;
                 }
             }
-            if (flipBit && ((i * j) % 2) + ((i * j) % 3) == 0)
+            if (flipBit && (((i * j) % 2) + ((i * j) % 3)) == 0)
             {
                 if (pat6[i][j] == 0)
                     pat6[i][j] = 1;
@@ -442,9 +422,7 @@ int **genMaskingPatterns(int **c, int version)
                     pat6[i][j] = 0;
             }
             flipBit = false;
-            std::cout << pat6[i][j] << " ";
         }
-        std::cout << std::endl;
     }
     score = scorePattern(pat6, width);
     if (score < lowestScore)
@@ -453,10 +431,8 @@ int **genMaskingPatterns(int **c, int version)
         bestMask = pat6;
         mask = 5;
     }
-    std::cout << "\n\n";
     
     // pattern 7
-    std::cout << "Mask 7: " << std::endl;
     int **pat7 = c;
     for (int i = 0; i < width; i++)
     {
@@ -473,7 +449,7 @@ int **genMaskingPatterns(int **c, int version)
                     flipBit = true;
                 }
             }
-            if (flipBit && ((i * j) % 2) + ((i * j) % 3) % 2 == 0)
+            if (flipBit && (((i * j) % 2) + ((i * j) % 3) % 2) == 0)
             {
                 if (pat7[i][j] == 0)
                     pat7[i][j] = 1;
@@ -481,9 +457,7 @@ int **genMaskingPatterns(int **c, int version)
                     pat7[i][j] = 0;
             }
             flipBit = false;
-            std::cout << pat7[i][j] << " ";
         }
-        std::cout << std::endl;
     }
     score = scorePattern(pat7, width);
     if (score < lowestScore)
@@ -492,10 +466,8 @@ int **genMaskingPatterns(int **c, int version)
         bestMask = pat7;
         mask = 6;
     }
-    std::cout << "\n\n";
     
     // pattern 8
-    std::cout << "Mask 8: " << std::endl;
     int **pat8 = c;
     for (int i = 0; i < width; i++)
     {
@@ -512,7 +484,7 @@ int **genMaskingPatterns(int **c, int version)
                     flipBit = true;
                 }
             }
-            if (flipBit && ((i + j) % 2) + ((i * j) % 3) % 2 == 0)
+            if (flipBit && (((i + j) % 2) + ((i * j) % 3) % 2) == 0)
             {
                 if (pat7[i][j] == 0)
                     pat7[i][j] = 1;
@@ -520,9 +492,7 @@ int **genMaskingPatterns(int **c, int version)
                     pat7[i][j] = 0;
             }
             flipBit = false;
-            std::cout << pat7[i][j] << " ";
         }
-        std::cout << std::endl;
     }
     score = scorePattern(pat8, width);
     if (score < lowestScore)
@@ -531,43 +501,52 @@ int **genMaskingPatterns(int **c, int version)
         bestMask = pat8;
         mask = 7;
     }
-    std::cout << "\n\n";
     
-    std::cout << "Mask " << mask << ": " << lowestScore << std::endl;
-    
+    std::cout << "Mask " << mask << std::endl;
+
     int formatLength = 5;
     int formatNum = mask;
     int originalGen = 1335;
     int genLength = 11;
     // pad 0's on the right to length 15
-    for (formatLength; formatLength < 15; formatLength++)
+    for (formatLength; getLength(formatNum) < 15; formatLength++)
     {
         formatNum *= 2;
     }
+    std::cout << formatNum << " " << getLength(formatNum) << std::endl;
     
     // do division with generator until length is 10 or less
     formatLength = getLength(formatNum);
-    while (formatLength > 10)
+    while (getLength(formatNum) > 10)
     {
         int tempGen = originalGen;
         int tempLen = genLength;
         
-        for (tempLen; tempLen <= formatLength; tempLen++)
+        for (tempLen; tempLen <= getLength(formatNum); tempLen++)
         {
             tempGen *= 2;
         }
         formatNum = formatNum ^ tempGen;
         formatLength = getLength(formatNum);
     }
+    std::cout << getLength(formatNum) << std::endl;
     
     // pad the formatNumber to length 10
-    for (formatLength; formatLength < 9; formatLength++)
+    bool keepGoing = true;
+    while (keepGoing)
     {
-        formatNum *= 2;
+        if (getLength(formatNum) == 10)
+        {
+            keepGoing = false;
+        }
+        else
+        {
+            formatNum *= 2;
+        }
+        formatLength = getLength(formatNum);
     }
-    std::cout << formatLength << std::endl;
     
-    std::vector<int> formatBinary = getBinary(formatNum, formatLength);
+    std::vector<int> formatBinary = getBinary(formatNum, formatLength - 1);
     std::vector<int> origFormat = getBinary(mask, 4);
     
     for (int i = 0; i < formatBinary.size(); i++)
@@ -575,6 +554,18 @@ int **genMaskingPatterns(int **c, int version)
         origFormat.push_back(formatBinary[i]);
     }
     
+    std::vector<int> specXOR = getBinary(21522, 14);
+
+    for (int i = 0; i < origFormat.size(); i++)
+    {
+        if (origFormat[i] != specXOR[i])
+            origFormat[i] = 1;
+        else
+            origFormat[i] = 0;
+        std::cout << origFormat[i];
+    }
+    std::cout << std::endl;
+
     // place dark module in bestMask
     bestMask[width - 8][8] = 1;
     
@@ -652,13 +643,22 @@ int **genMaskingPatterns(int **c, int version)
         }
     }
     
-    int *QRrows[width];
+    QImage img(QSize(width, width), QImage::Format_RGB32);
+
     for (int i = 0; i < width; i++)
     {
-        QRrows[i] = finalCode[i];
+        for (int j = 0; j < width; j++)
+        {
+            if (finalCode[i][j] == 1)
+            {
+                img.setPixel(j, i, qRgb(0, 0, 0));
+            }
+            else
+            {
+                img.setPixel(j, i, qRgb(255, 255, 255));
+            }
+        }
     }
-    
-    int **code = QRrows;
-    
-    return code;
+
+    img.save("QR.png");
 }
