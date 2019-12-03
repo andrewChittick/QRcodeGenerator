@@ -503,7 +503,6 @@ void genMaskingPatterns(int **c, int version, std::string color)
         mask = 7;
     }
     
-    std::cout << "Mask " << mask << std::endl;
 
     int formatLength = 5;
     int formatNum = mask;
