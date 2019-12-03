@@ -205,7 +205,6 @@ std::string * MainWindow::dataEncoding() {
 std::string MainWindow::getColor() {
     QString color = ui->comboBox->currentText();
     std::string selectedColor = color.toStdString();
-    std::cout << selectedColor << std::endl;
     return selectedColor;
 }
 
@@ -229,27 +228,16 @@ void MainWindow::on_submitButton_clicked() {
     errorCorrection(codewords, numCodeWords, errorCorrectionWords, numErrorWords);
     //convert errorCorrection words to binary
     std::string * binaryErrorWords = new std::string[numErrorWords];
-    std::cout<<"here 1"<<std::endl;
     for (int i=0; i < numErrorWords; i++){
         binaryErrorWords[i] = decimalToBinary(std::to_string(errorCorrectionWords[i]), 7);
     }
-    std::cout<<"here 2"<<std::endl;
-    //test
-    for (int i=0; i<numCodeWords; i++){
-      std::cout<<codewords[i]<<std::endl;
-    }
 
-
-    for (int i=0; i<numErrorWords; i++){
-      std::cout<<errorCorrectionWords[i]<<std::endl;
-    }
 
     std::string finalMessage = makeFinalMessage(binaryErrorWords, codewords, numCodeWords, numErrorWords);
 
     int ** layout = makeMatrix(finalMessage, level);
 
 
-    std::cout<<"final message: "<<finalMessage<<std::endl;
 
     genMaskingPatterns(layout, level, getColor());
 
