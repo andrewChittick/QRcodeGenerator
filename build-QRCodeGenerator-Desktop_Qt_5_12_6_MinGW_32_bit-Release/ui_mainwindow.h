@@ -72,6 +72,10 @@ public:
         comboBox->addItem(QString());
         comboBox->addItem(QString());
         comboBox->addItem(QString());
+        comboBox->addItem(QString());
+        comboBox->addItem(QString());
+        comboBox->addItem(QString());
+        comboBox->addItem(QString());
         comboBox->setObjectName(QString::fromUtf8("comboBox"));
 
         formLayout->setWidget(1, QFormLayout::FieldRole, comboBox);
@@ -84,7 +88,7 @@ public:
         MainWindow->setCentralWidget(centralwidget);
         menubar = new QMenuBar(MainWindow);
         menubar->setObjectName(QString::fromUtf8("menubar"));
-        menubar->setGeometry(QRect(0, 0, 661, 21));
+        menubar->setGeometry(QRect(0, 0, 661, 26));
         menuQRCodeGenerator = new QMenu(menubar);
         menuQRCodeGenerator->setObjectName(QString::fromUtf8("menuQRCodeGenerator"));
         MainWindow->setMenuBar(menubar);
@@ -105,8 +109,12 @@ public:
         label->setText(QApplication::translate("MainWindow", "QR:", nullptr));
         primaryColor->setText(QApplication::translate("MainWindow", "Primary Color:", nullptr));
         comboBox->setItemText(0, QApplication::translate("MainWindow", "Black", nullptr));
-        comboBox->setItemText(1, QApplication::translate("MainWindow", "Purple", nullptr));
-        comboBox->setItemText(2, QString());
+        comboBox->setItemText(1, QApplication::translate("MainWindow", "Red", nullptr));
+        comboBox->setItemText(2, QApplication::translate("MainWindow", "Purple", nullptr));
+        comboBox->setItemText(3, QApplication::translate("MainWindow", "Blue", nullptr));
+        comboBox->setItemText(4, QApplication::translate("MainWindow", "Orange", nullptr));
+        comboBox->setItemText(5, QApplication::translate("MainWindow", "Green", nullptr));
+        comboBox->setItemText(6, QString());
 
         submitButton->setText(QApplication::translate("MainWindow", "Submit", nullptr));
         menuQRCodeGenerator->setTitle(QApplication::translate("MainWindow", "QRCodeGenerator", nullptr));

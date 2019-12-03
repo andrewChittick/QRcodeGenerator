@@ -21,7 +21,6 @@ void makeImage(int **code, int v)
     {
         for (int j = 0; j < 29; j++)
         {
-            //std::cout << code[i][j] << " ";
             if (code[i][j] >= 1)
             {
                 img.setPixel(j, i, 0);
@@ -31,7 +30,6 @@ void makeImage(int **code, int v)
                 img.setPixel(j, i, 1);
             }
         }
-        std::cout << std::endl;
     }
 
     img.save("QR.png");

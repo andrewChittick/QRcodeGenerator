@@ -34,6 +34,7 @@ int MainWindow::chooseVersion(std::string input) {
     return 0;
 }
 
+// Takes decimal string and converts to a binary string of <binarySize> length
 std::string MainWindow::decimalToBinary(std::string input, int binarySize) {
     int number = std::stoi(input);
     std::string binaryNumber;
@@ -49,6 +50,7 @@ std::string MainWindow::decimalToBinary(std::string input, int binarySize) {
     return binaryNumber;
 }
 
+// Gets the character count code for the binary output
 std::string MainWindow::characterCount(std::string input, int versionNumber) {
     int stringLength = input.length();
     std::string finalCount;

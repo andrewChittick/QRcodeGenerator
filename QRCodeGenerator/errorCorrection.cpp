@@ -2,59 +2,8 @@
 //Error Correction takes data codewords
 //and produces error correction codewords
 
-//#include <iostream>
-//#include <string>
-//#include <math.h>
 #include "errorCorrection.h"
 
-//void errorCorrection(std::string *, int, int *, int);
-/*
-int main(int argc, char * argv[]){
-  //test cases
-  //HELLO WORLD (level 1)
-  //errorCodeWords = (196, 35, 39, 119, 235, 215, 131, 226, 93, 23)
-  std::string levelOne[16] = {"00100000", "01011011", "00001011", "01111000", "11010001", "01110010", "11011100", "01001101", "01000011", "01000000", "11101100", "00010001", "11101100", "00010001", "11101100", "00010001"};
-  //Software Engineering 450 (level 2)
-  //errorCodeWords = (187, 34, 119, 6, 118, 146, 177, 2, 249, 134, 248, 31, 176, 164, 208, 171)
-  std::string levelTwo[28] = {"01000001", "10000101", "00110110", "11110110", "01100111", "01000111", "01110110", "00010111", "00100110", "01010010", "00000100", "01010110", "11100110", "01110110", "10010110", "11100110", "01010110", "01010111", "00100110", "10010110", "11100110", "01110010", "00000011", "01000011", "01010011", "00000000", "11101100", "00010001"};
-  //https://github.com/andrewChittick (level 3)
-  //errorCodeWords = (16, 85, 240, 31, 127, 17, 10, 113, 99, 100, 133, 159, 123, 152, 139, 253, 96, 37, 204, 119, 185, 199, 149, 174, 247, 4)
-  std::string levelThree[44] =
-  {"01000010", "00010110", "10000111", "01000111", "01000111", "00000111", "00110011", "10100010", "11110010", "11110110", "01110110", "10010111", "01000110", "10000111", "01010110", "00100010", "11100110", "00110110", "11110110", "11010010", "11110110", "00010110", "11100110", "01000111", "00100110", "01010111", "01110100", "00110110", "10000110", "10010111", "01000111", "01000110", "10010110", "00110110", "10110000", "11101100", "00010001", "11101100", "00010001", "11101100", "00010001", "11101100", "00010001", "11101100"};
-  std::string * codewords;
-
-  int level = 3;
-  //end test data
-
-  int numCodeWords, numErrorWords;
-  if (level == 1){
-    numCodeWords = 16;
-    numErrorWords = 10;
-    codewords = levelOne;//for testing
-  }
-  else if (level == 2){
-    numCodeWords = 28;
-    numErrorWords = 16;
-    codewords = levelTwo;//for testing
-  }
-  else{
-    numCodeWords = 44;
-    numErrorWords = 26;
-    codewords = levelThree;//for testing
-  }
-  //to run error correction
-  int * errorCorrectionWords = new int[numErrorWords];
-  errorCorrection(codewords, numCodeWords, errorCorrectionWords, numErrorWords);
-
-  //print answer
-  for (int i=0; i<numErrorWords; i++){
-    std::cout<<errorCorrectionWords[i]<<std::endl;
-  }
-
-  delete [] errorCorrectionWords;
-  //end error correction
-}
-*/
 void errorCorrection(std::string * codewords, int numCodeWords, int* errorCorrectionWords, int numErrorWords){
   //define functions
   //void codeToDecimal(std::string *, int, int *);

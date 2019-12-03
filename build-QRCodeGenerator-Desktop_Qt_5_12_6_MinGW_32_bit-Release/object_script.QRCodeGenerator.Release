@@ -1,5 +1,4 @@
 release/createPNG.o
-release/lodepng.o
 release/main.o
 release/mainwindow.o
 release/masking.o

@@ -1,5 +1,4 @@
 debug/createPNG.o
-debug/lodepng.o
 debug/main.o
 debug/mainwindow.o
 debug/masking.o

@@ -17,7 +17,6 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 SOURCES += \
     createPNG.cpp \
-    lodepng.cpp \
     main.cpp \
     mainwindow.cpp \
     masking.cpp \
