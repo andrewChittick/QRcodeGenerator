@@ -82,14 +82,6 @@ int **makeMatrix(std::string data, int version)
 	setInfoAreas(matrix, patterns, dim - 1);
     	layoutData(matrix, patterns, data, dim - 1, version);
 
-
-    for (int i =0; i< dim; i++){
-        for (int j =0;  j<dim; j++){
-            cout<<matrix[i][j];
-         }
-        cout<<endl;
-     }
-
 	
 	return matrix;
 }
@@ -164,14 +156,13 @@ void layoutData(int **matrix, int **patterns, std::string data, int dim, int ver
     }
     int dataBits = 0;
     totalBits = data.length() - 1;
-    std::cout << dim << std::endl;
 
 
     int col = 0;
     while (dataBits < totalBits)
     {
 
-        std::cout << "(" << rightx << "," << currenty << ") (" << leftx << "," << currenty << ")" << std::endl;
+
         if(patterns[rightx][currenty] == 0)
         {
             matrix[currenty][rightx] = int(data.at(dataBits));
