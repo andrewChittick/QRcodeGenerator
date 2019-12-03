@@ -2,6 +2,7 @@
 #include <cmath>
 #include <vector>
 #include <QImage>
+#include <map>
 
 int scorePattern(int **c, int width)
 {
@@ -203,7 +204,7 @@ std::vector<int> getBinary(int a, int len)
     return binary;
 }
 
-void genMaskingPatterns(int **c, int version)
+void genMaskingPatterns(int **c, int version, std::string color)
 {
     int width;
     
@@ -655,13 +656,22 @@ void genMaskingPatterns(int **c, int version)
     
     QImage img(QSize(width, width), QImage::Format_RGB32);
 
+    std::map<std::string, QRgb> colors;
+
+    colors.insert(std::make_pair("Black", qRgb(0, 0, 0)));
+    colors.insert(std::make_pair("Red", qRgb(255, 0, 0)));
+    colors.insert(std::make_pair("Purple", qRgb(255, 0, 255)));
+    colors.insert(std::make_pair("Green", qRgb(0, 100, 0)));
+    colors.insert(std::make_pair("Blue", qRgb(0, 0, 255)));
+    colors.insert(std::make_pair("Orange", qRgb(255, 140, 0)));
+
     for (int i = 0; i < width; i++)
     {
         for (int j = 0; j < width; j++)
         {
             if (finalCode[i][j] == 1)
             {
-                img.setPixel(j, i, qRgb(0, 0, 0));
+                img.setPixel(j, i, colors.at(color));
             }
             else
             {

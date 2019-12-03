@@ -251,7 +251,7 @@ void MainWindow::on_submitButton_clicked() {
 
     std::cout<<"final message: "<<finalMessage<<std::endl;
 
-    genMaskingPatterns(layout, level);
+    genMaskingPatterns(layout, level, getColor());
 
     delete [] errorCorrectionWords;
     delete [] binaryErrorWords;
